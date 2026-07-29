@@ -9,14 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TopicsIndexRouteImport } from './routes/topics/index'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -30,6 +37,11 @@ const TopicsIndexRoute = TopicsIndexRouteImport.update({
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/events/',
   path: '/events/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesIndexRoute = CoursesIndexRouteImport.update({
@@ -55,29 +67,35 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/courses/': typeof CoursesIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about': typeof AboutIndexRoute
   '/courses': typeof CoursesIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
   '/topics': typeof TopicsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/courses/': typeof CoursesIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
 }
@@ -85,44 +103,59 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/sitemap.xml'
     | '/courses/$slug'
     | '/topics/$slug'
     | '/about/'
     | '/courses/'
+    | '/dashboard/'
     | '/events/'
     | '/topics/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/sitemap.xml'
     | '/courses/$slug'
     | '/topics/$slug'
     | '/about'
     | '/courses'
+    | '/dashboard'
     | '/events'
     | '/topics'
   id:
     | '__root__'
     | '/'
+    | '/sitemap.xml'
     | '/courses/$slug'
     | '/topics/$slug'
     | '/about/'
     | '/courses/'
+    | '/dashboard/'
     | '/events/'
     | '/topics/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
   TopicsSlugRoute: typeof TopicsSlugRoute
   AboutIndexRoute: typeof AboutIndexRoute
   CoursesIndexRoute: typeof CoursesIndexRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
   TopicsIndexRoute: typeof TopicsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -142,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/events/'
       preLoaderRoute: typeof EventsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses/': {
@@ -177,13 +217,25 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   CoursesSlugRoute: CoursesSlugRoute,
   TopicsSlugRoute: TopicsSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
   CoursesIndexRoute: CoursesIndexRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
   EventsIndexRoute: EventsIndexRoute,
   TopicsIndexRoute: TopicsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
