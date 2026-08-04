@@ -163,6 +163,15 @@ export function Navbar() {
                     >
                       All knowledge pages
                     </Link>
+                    {section.key === "health-wellness" && (
+                      <Link
+                        to="/courses/health-wellness-guided-program"
+                        onClick={() => setOpen(null)}
+                        className="mt-4 inline-block text-[0.78rem] tracking-widest uppercase text-gold hover:text-gold/80"
+                      >
+                        Find a guided program
+                      </Link>
+                    )}
                   </div>
                   <ul className="grid grid-cols-3 gap-x-10 gap-y-3">
                     {section.topics.map((t) => (

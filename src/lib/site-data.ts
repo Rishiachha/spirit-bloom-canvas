@@ -199,6 +199,17 @@ export const courses: Course[] = [
     includes: ["Alignment labs", "Pranayama intensives", "Philosophy sessions", "Q&A"],
   },
   {
+    slug: "health-wellness-guided-program",
+    title: "Health & Wellness Guided Program",
+    group: "Wellness",
+    purpose: "Guided practices for the body and mind you live in every day.",
+    description: "Eight common challenges that affect nearly every member of our community — back pain, joint stiffness, stress, anxiety, sleep disruption, and more. This program is not a collection of generic tips. It is a structured, guided journey through the practices that the Foundation has refined over decades: gentle movement for stiff joints, breathwork for anxiety, evening sequences for sleep, and daily rituals for lasting vitality. Each module addresses one problem directly, with practices you can do in 15 to 30 minutes. No equipment is needed beyond a mat and a willingness to begin.",
+    duration: "8 weeks",
+    level: "All levels",
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&q=80",
+    includes: ["Physical Wellness", "Back Care", "Joint Health", "Mental Wellness", "Stress Release", "Anxiety Relief", "Sleep Repair", "Healthy Living"],
+  },
+  {
     slug: "wellness-workshops",
     title: "Wellness Workshops",
     group: "Retreats",
