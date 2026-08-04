@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, Outlet, useLocation } from "@tanstack/react-router";
 import { Section, SectionHeader } from "@/components/site/Section";
 import { courses } from "@/lib/site-data";
 import founder from "@/assets/founder.jpg";
@@ -43,6 +43,36 @@ const faqs = [
 
 function CoursePage() {
   const course = Route.useLoaderData();
+  const location = useLocation();
+  const isVideosPage = location.pathname.includes("/videos/");
+
+  if (isVideosPage) {
+    return (
+      <>
+        <section className="relative overflow-hidden pt-[90px]">
+          <div className="absolute inset-0 bg-forest" />
+          <div className="relative mx-auto max-w-[1400px] px-6 py-28 lg:px-10">
+            <Link
+              to="/courses"
+              className="text-[0.72rem] tracking-[0.2em] uppercase text-ivory/70 hover:text-ivory"
+            >
+              ← All programs
+            </Link>
+            <h1 className="mt-8 font-display text-5xl leading-[1.06] text-ivory sm:text-7xl">
+              {course.title}
+            </h1>
+            <div className="mt-6 flex flex-wrap items-center gap-6">
+              <span className="eyebrow">{course.duration}</span>
+              <span className="text-ivory/50">·</span>
+              <span className="eyebrow">{course.level}</span>
+            </div>
+          </div>
+        </section>
+        <Outlet />
+      </>
+    );
+  }
+
   const heroImage = course.image ?? "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1920&q=80";
 
   return (
