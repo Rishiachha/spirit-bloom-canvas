@@ -98,6 +98,7 @@ function CoursePage() {
             {course.purpose}
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8">
+          {course.videos && course.videos.length > 0 && (
           <Link
             to="/courses/$slug/videos/"
             params={{ slug: course.slug }}
@@ -105,6 +106,7 @@ function CoursePage() {
           >
             Enrol in this program
           </Link>
+        )}
             <div className="flex gap-10 text-ivory/80">
               <div>
                 <p className="eyebrow text-ivory/60">Duration</p>
@@ -232,6 +234,7 @@ function CoursePage() {
           <p className="mt-8 text-[1rem] leading-relaxed text-ivory/75">
             Places are limited so that every student can be known by name.
           </p>
+          {course.videos && course.videos.length > 0 && (
           <Link
             to="/courses/$slug/videos/"
             params={{ slug: course.slug }}
@@ -239,6 +242,7 @@ function CoursePage() {
           >
             Start watching
           </Link>
+        )}
         </div>
       </Section>
       <Outlet />
