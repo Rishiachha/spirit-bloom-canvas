@@ -62,10 +62,9 @@ function AboutPage() {
               Rishi Sidhasamadhi
             </h2>
             <p className="mt-8 leading-[1.85] text-foreground/80">
-              He rarely speaks about the years in the mountains. What he speaks about is the
-              morning he came down: the noise of the town, the ordinariness of it, and the sudden
-              certainty that the practice was meant for exactly that noise — not for the silence
-              above it.
+              He rarely speaks about the years in the mountains. What he speaks about is the morning
+              he came down: the noise of the town, the ordinariness of it, and the sudden certainty
+              that the practice was meant for exactly that noise â€” not for the silence above it.
             </p>
             <p className="mt-5 leading-[1.85] text-foreground/80">
               The Foundation was built on that certainty. Practice belongs to householders,
@@ -112,7 +111,7 @@ function AboutPage() {
         <SectionHeader
           eyebrow="Leadership"
           title="The people who hold the work"
-          intro="Teachers, trustees and volunteers — all practising, all accountable to the same discipline they teach."
+          intro="Teachers, trustees and volunteers â€” all practising, all accountable to the same discipline they teach."
         />
         <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -178,7 +177,7 @@ function AboutPage() {
             Come and sit with us.
           </h2>
           <p className="mt-8 text-[1rem] leading-relaxed text-ivory/75">
-            Foundation Ashram, Riverbank Road, Rishikesh · sanctuary@rishisidhasamadhi.org
+            Foundation Ashram, Riverbank Road, Rishikesh Â· sanctuary@rishisidhasamadhi.org
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link

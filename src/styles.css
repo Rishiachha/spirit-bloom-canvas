@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
-@source "../src";
 @import "tw-animate-css";
+
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -192,6 +193,10 @@
   color: var(--earth);
 }
 
+@utility font-sanskrit {
+  font-family: "Noto Serif Devanagari", serif;
+}
+
 @utility sanctuary-card {
   border-radius: var(--radius-3xl);
   background: var(--card);
@@ -212,11 +217,7 @@
 @utility rule-gold {
   height: 1px;
   width: 3.5rem;
-  background: linear-gradient(
-    90deg,
-    var(--gold),
-    color-mix(in oklab, var(--gold) 0%, transparent)
-  );
+  background: linear-gradient(90deg, var(--gold), color-mix(in oklab, var(--gold) 0%, transparent));
 }
 
 @keyframes breathe {

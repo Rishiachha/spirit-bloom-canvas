@@ -15,7 +15,7 @@ export const Route = createFileRoute("/topics/$slug")({
           { title: `${loaderData.topic.title} | Rishi Sidhasamadhi Yoga Foundation` },
           {
             name: "description",
-            content: `${loaderData.topic.title} — an unhurried, editorial guide from the ${loaderData.topic.section} library of the Rishi Sidhasamadhi Yoga Foundation.`,
+            content: `${loaderData.topic.title} â€” an unhurried, editorial guide from the ${loaderData.topic.section} library of the Rishi Sidhasamadhi Yoga Foundation.`,
           },
           { property: "og:title", content: `${loaderData.topic.title} | Rishi Sidhasamadhi Yoga` },
           {
@@ -41,11 +41,11 @@ function TopicPage() {
           </h1>
           <div className="rule-gold mt-8" />
           <p className="mt-8 font-display text-[1.7rem] leading-snug text-earth">
-            An unhurried reading on {topic.title.toLowerCase()} — where it comes from, what it asks
-            of you, and how to begin without needing to believe anything first.
+            An unhurried reading on {topic.title.toLowerCase()} â€” where it comes from, what it
+            asks of you, and how to begin without needing to believe anything first.
           </p>
           <p className="mt-8 text-xs tracking-[0.18em] uppercase text-muted-foreground">
-            9 minute read · Foundation Library
+            9 minute read Â· Foundation Library
           </p>
         </div>
       </Section>
@@ -61,38 +61,43 @@ function TopicPage() {
           <aside className="self-start lg:sticky lg:top-32">
             <p className="eyebrow mb-5">In this page</p>
             <ul className="space-y-2.5 text-sm text-muted-foreground">
-              {["The beginning", "What it means", "The practice", "In daily life", "Going further"].map(
-                (h) => (
-                  <li key={h} className="border-l border-border pl-4">
-                    {h}
-                  </li>
-                ),
-              )}
+              {[
+                "The beginning",
+                "What it means",
+                "The practice",
+                "In daily life",
+                "Going further",
+              ].map((h) => (
+                <li key={h} className="border-l border-border pl-4">
+                  {h}
+                </li>
+              ))}
             </ul>
           </aside>
 
           <article className="max-w-2xl">
             <p className="font-display text-2xl leading-relaxed text-forest">
               Every subject in this library is approached the same way: first the history, then the
-              meaning, then the practice — and only then, what it might change in an ordinary week.
+              meaning, then the practice â€” and only then, what it might change in an ordinary
+              week.
             </p>
 
             <h2 className="mt-14 font-display text-3xl text-forest">The beginning</h2>
             <p className="mt-5 leading-[1.85] text-foreground/80">
               {topic.title} did not arrive as a technique. It arrived as an answer to a question
-              that people were already living inside — how to be steady when life is not. The
+              that people were already living inside â€” how to be steady when life is not. The
               earliest teachers wrote very little down, and what survives is deliberately spare:
               instructions meant to be filled in by experience rather than by explanation.
             </p>
             <p className="mt-5 leading-[1.85] text-foreground/80">
               What follows is not a summary of scripture. It is the shape of the subject as it is
-              taught in this Foundation — plainly, without embellishment, and with the assumption
+              taught in this Foundation â€” plainly, without embellishment, and with the assumption
               that you will test everything against your own practice.
             </p>
 
             <blockquote className="my-12 border-l-2 border-gold pl-8">
               <p className="font-display text-2xl leading-snug italic text-earth">
-                “Understanding follows practice. It has never once arrived before it.”
+                â€œUnderstanding follows practice. It has never once arrived before it.â€
               </p>
             </blockquote>
 

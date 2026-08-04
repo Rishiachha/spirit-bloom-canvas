@@ -10,7 +10,7 @@ export const Route = createFileRoute("/courses/")({
       {
         name: "description",
         content:
-          "Twenty guided programs — foundation courses, teacher training, wellness programs, special programs and retreats, taught in the classical tradition.",
+          "Twenty guided programs â€” foundation courses, teacher training, wellness programs, special programs and retreats, taught in the classical tradition.",
       },
       { property: "og:title", content: "Courses & Programs | Rishi Sidhasamadhi Yoga" },
       {
@@ -49,7 +49,7 @@ function CoursesIndex() {
       {courseGroups.map((group, gi) => (
         <Section key={group.key} className={gi % 2 === 1 ? "bg-sand/50" : ""}>
           <SectionHeader
-            eyebrow={`${String(gi + 1).padStart(2, "0")} — Track`}
+            eyebrow={`${String(gi + 1).padStart(2, "0")} â€” Track`}
             title={group.label}
           />
           <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,7 +63,7 @@ function CoursesIndex() {
                   className="sanctuary-card flex flex-col p-9"
                 >
                   <p className="eyebrow">
-                    {c.level} · {c.duration}
+                    {c.level} Â· {c.duration}
                   </p>
                   <p className="mt-5 font-display text-[1.7rem] leading-tight text-forest">
                     {c.title}

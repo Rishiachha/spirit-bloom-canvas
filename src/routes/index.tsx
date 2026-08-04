@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A sanctuary for yoga and meditation — foundation courses, wellness programs, retreats and classical knowledge, offered in the spirit of the tradition.",
+          "A sanctuary for yoga and meditation â€” foundation courses, wellness programs, retreats and classical knowledge, offered in the spirit of the tradition.",
       },
       { property: "og:title", content: "Rishi Sidhasamadhi Yoga Foundation" },
       {
@@ -61,7 +61,7 @@ function Hero() {
               <span className="block italic text-ivory/85">with the morning.</span>
             </h1>
             <p className="mt-8 max-w-md text-[1.02rem] leading-relaxed text-ivory/80">
-              A foundation for yoga, meditation and inner transformation — where practice is
+              A foundation for yoga, meditation and inner transformation â€” where practice is
               unhurried, wisdom is shared freely, and no one walks alone.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -80,18 +80,16 @@ function Hero() {
             </div>
           </div>
 
-          {/* Sanskrit quote — always visible */}
+          {/* Sanskrit quote â€” always visible */}
           <div className="glass-panel rounded-3xl border border-ivory/25 p-8 shadow-lift sm:p-10">
             <p className="eyebrow">Verse of the morning</p>
             <p
               key={quote.sanskrit}
-              className="mt-6 animate-rise font-display text-3xl leading-snug text-forest sm:text-[2.35rem]"
+              className="font-sanskrit mt-6 animate-rise text-3xl leading-[1.8] text-forest sm:text-[2.5rem]"
             >
               {quote.sanskrit}
             </p>
-            <p className="mt-3 text-sm italic tracking-wide text-earth">
-              {quote.transliteration}
-            </p>
+            <p className="mt-3 text-sm italic tracking-wide text-earth">{quote.transliteration}</p>
             <div className="rule-gold my-6" />
             <p className="font-display text-xl leading-snug text-foreground">{quote.translation}</p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{quote.meaning}</p>
@@ -104,7 +102,9 @@ function Hero() {
                   className="h-1 w-10 rounded-full transition-colors"
                   style={{
                     background:
-                      i === index ? "var(--gold)" : "color-mix(in oklab, var(--earth) 25%, transparent)",
+                      i === index
+                        ? "var(--gold)"
+                        : "color-mix(in oklab, var(--earth) 25%, transparent)",
                   }}
                 />
               ))}
@@ -123,7 +123,7 @@ const whyYoga = [
   },
   {
     title: "Clarity",
-    body: "Attention returns to one thing at a time — and life becomes legible again.",
+    body: "Attention returns to one thing at a time â€” and life becomes legible again.",
   },
   {
     title: "Strength",
@@ -144,9 +144,21 @@ const challenges = [
 
 const fourPaths = [
   { name: "Karma Yoga", sanskrit: "कर्म", body: "The path of selfless action and service." },
-  { name: "Bhakti Yoga", sanskrit: "भक्ति", body: "The path of devotion, chant and surrender." },
-  { name: "Jnana Yoga", sanskrit: "ज्ञान", body: "The path of enquiry, study and discernment." },
-  { name: "Raja Yoga", sanskrit: "राज", body: "The path of meditation and inner discipline." },
+  {
+    name: "Bhakti Yoga",
+    sanskrit: "भक्ति",
+    body: "The path of devotion, chant and surrender.",
+  },
+  {
+    name: "Jnana Yoga",
+    sanskrit: "ज्ञान",
+    body: "The path of enquiry, study and discernment.",
+  },
+  {
+    name: "Raja Yoga",
+    sanskrit: "राज",
+    body: "The path of meditation and inner discipline.",
+  },
 ];
 
 const pillars = [
@@ -165,7 +177,7 @@ const testimonials = [
   },
   {
     quote:
-      "The teachers never rushed me. Three years later I teach the same way — slowly, and with respect.",
+      "The teachers never rushed me. Three years later I teach the same way â€” slowly, and with respect.",
     name: "Michael T.",
     role: "Teacher Training, 200hr",
   },
@@ -193,7 +205,7 @@ function Home() {
                 <span className="block italic text-earth">A way of meeting yourself.</span>
               </>
             }
-            intro="Yoga was never designed to make the body impressive. It was designed to make the mind quiet enough to see clearly — and then to live from that clarity."
+            intro="Yoga was never designed to make the body impressive. It was designed to make the mind quiet enough to see clearly â€” and then to live from that clarity."
           />
           <div className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2">
             {whyYoga.map((w) => (
@@ -227,7 +239,7 @@ function Home() {
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.intro}</p>
               </div>
               <span className="mt-10 text-[0.72rem] tracking-[0.2em] uppercase text-earth">
-                Enter →
+                Enter â†’
               </span>
             </Link>
           ))}
@@ -270,10 +282,7 @@ function Home() {
           height={900}
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div
-          className="absolute inset-0"
-          style={{ background: "oklch(0.28 0.03 150 / 0.66)" }}
-        />
+        <div className="absolute inset-0" style={{ background: "oklch(0.28 0.03 150 / 0.66)" }} />
         <div className="relative mx-auto max-w-[1400px] px-6 py-32 lg:px-10">
           <div className="max-w-2xl">
             <p className="eyebrow text-ivory/70">Daily Practice</p>
@@ -282,15 +291,15 @@ function Home() {
             </h2>
             <div className="rule-gold mt-8" />
             <p className="mt-8 text-[1rem] leading-relaxed text-ivory/80">
-              A guided sequence is released each dawn — asana, pranayama and a short sitting.
+              A guided sequence is released each dawn â€” asana, pranayama and a short sitting.
               Nothing to achieve. Only a place to return to.
             </p>
           </div>
           <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-ivory/20 bg-ivory/20 sm:grid-cols-3">
             {[
-              { t: "05:30 · Awaken", b: "Gentle joint freeing and sun salutations." },
-              { t: "05:50 · Breathe", b: "Nadi shodhana and a measured pranayama." },
-              { t: "06:05 · Sit", b: "Fifteen minutes of unforced attention." },
+              { t: "05:30 Â· Awaken", b: "Gentle joint freeing and sun salutations." },
+              { t: "05:50 Â· Breathe", b: "Nadi shodhana and a measured pranayama." },
+              { t: "06:05 Â· Sit", b: "Fifteen minutes of unforced attention." },
             ].map((s) => (
               <div key={s.t} className="p-10" style={{ background: "oklch(0.24 0.03 150 / 0.55)" }}>
                 <p className="font-display text-2xl text-ivory">{s.t}</p>
@@ -311,7 +320,7 @@ function Home() {
         <div className="mt-16 grid gap-8 lg:grid-cols-4">
           {fourPaths.map((p) => (
             <div key={p.name} className="sanctuary-card p-10 text-center">
-              <p className="font-display text-5xl text-gold">{p.sanskrit}</p>
+              <p className="font-sanskrit text-5xl text-gold">{p.sanskrit}</p>
               <p className="mt-6 font-display text-2xl text-forest">{p.name}</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
             </div>
@@ -339,8 +348,8 @@ function Home() {
             </h2>
             <div className="rule-gold mt-7" />
             <p className="mt-8 font-display text-2xl leading-snug italic text-earth">
-              “Do not seek peace in the mountains. Bring the mountain quiet into your kitchen, your
-              work, your ordinary Tuesday.”
+              â€œDo not seek peace in the mountains. Bring the mountain quiet into your kitchen,
+              your work, your ordinary Tuesday.â€
             </p>
             <p className="mt-8 text-[0.98rem] leading-relaxed text-muted-foreground">
               He left home at nineteen and spent twenty-two years in the upper valleys, studying
@@ -363,7 +372,8 @@ function Home() {
           <p className="eyebrow">Our Mission</p>
           <p className="mt-8 font-display text-3xl leading-[1.35] text-forest sm:text-[2.9rem]">
             To make the classical practices of yoga and meditation available to every person,
-            without barrier of cost, geography or belief — and to hold them there, for generations.
+            without barrier of cost, geography or belief â€” and to hold them there, for
+            generations.
           </p>
           <div className="rule-gold mx-auto mt-10" />
         </div>
@@ -375,7 +385,7 @@ function Home() {
         <div className="mt-16 grid gap-8 lg:grid-cols-3">
           {testimonials.map((t) => (
             <figure key={t.name} className="sanctuary-card flex flex-col p-10">
-              <p className="font-display text-5xl leading-none text-gold/70">”</p>
+              <p className="font-display text-5xl leading-none text-gold/70">â€</p>
               <blockquote className="mt-4 flex-1 font-display text-[1.45rem] leading-snug text-forest">
                 {t.quote}
               </blockquote>
@@ -435,7 +445,7 @@ function Home() {
             </h2>
             <p className="mt-8 max-w-lg text-[1rem] leading-relaxed text-ivory/75">
               Begin with the Foundation Course, or simply join a morning practice. There is no
-              qualification required — only the willingness to sit down.
+              qualification required â€” only the willingness to sit down.
             </p>
           </div>
           <div className="flex flex-wrap gap-4 lg:justify-end">
@@ -489,7 +499,7 @@ function Home() {
           </div>
           <p className="mt-14 text-sm leading-relaxed text-muted-foreground">
             Inhale as the circle expands. Exhale as it settles. Four rounds is enough to change the
-            afternoon — that is the whole teaching, offered for free.
+            afternoon â€” that is the whole teaching, offered for free.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             {["Pranayama", "Yoga Nidra", "Mantra Practice"].map((t) => (
@@ -525,13 +535,15 @@ function Home() {
               params={{ slug: c.slug }}
               className="sanctuary-card flex flex-col p-10"
             >
-              <p className="eyebrow">{c.level} · {c.duration}</p>
+              <p className="eyebrow">
+                {c.level} Â· {c.duration}
+              </p>
               <p className="mt-5 font-display text-3xl leading-tight text-forest">{c.title}</p>
               <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
                 {c.purpose}
               </p>
               <span className="mt-8 text-[0.72rem] tracking-[0.2em] uppercase text-earth">
-                View course →
+                View course â†’
               </span>
             </Link>
           ))}

@@ -85,11 +85,7 @@ export function Navbar() {
             >
               My Journey
             </Link>
-            <button
-              className="lg:hidden"
-              aria-label="Menu"
-              onClick={() => setMobile((v) => !v)}
-            >
+            <button className="lg:hidden" aria-label="Menu" onClick={() => setMobile((v) => !v)}>
               {mobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>

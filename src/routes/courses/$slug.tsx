@@ -61,7 +61,7 @@ function CoursePage() {
             to="/courses"
             className="text-[0.72rem] tracking-[0.2em] uppercase text-ivory/70 hover:text-ivory"
           >
-            ← All programs
+            â† All programs
           </Link>
           <h1 className="mt-8 max-w-3xl font-display text-5xl leading-[1.06] text-ivory sm:text-7xl">
             {course.title}
@@ -108,7 +108,7 @@ function CoursePage() {
                   <p className="font-display text-2xl text-forest">{mod}</p>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     Guided sessions, a short daily assignment, and reading drawn from the classical
-                    texts — always explained in ordinary language.
+                    texts â€” always explained in ordinary language.
                   </p>
                 </div>
               </div>
@@ -154,7 +154,7 @@ function CoursePage() {
           ].map((q, i) => (
             <figure key={q} className="sanctuary-card p-10">
               <blockquote className="font-display text-[1.4rem] leading-snug text-forest">
-                “{q}”
+                â€œ{q}â€
               </blockquote>
               <figcaption className="mt-8 border-t border-border pt-6 text-sm text-muted-foreground">
                 Graduate, cohort {2024 + i}

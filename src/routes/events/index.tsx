@@ -10,7 +10,7 @@ export const Route = createFileRoute("/events/")({
       {
         name: "description",
         content:
-          "International Yoga Day, Himalayan retreats, workshops and full-moon satsangs — gatherings where practice becomes community.",
+          "International Yoga Day, Himalayan retreats, workshops and full-moon satsangs â€” gatherings where practice becomes community.",
       },
       { property: "og:title", content: "Events & Retreats | Rishi Sidhasamadhi Yoga" },
       {
@@ -90,7 +90,7 @@ function EventsPage() {
             },
             {
               t: "Celebration",
-              b: "Chanting, music and silence — the tradition has always known how to celebrate quietly.",
+              b: "Chanting, music and silence â€” the tradition has always known how to celebrate quietly.",
             },
           ].map((c) => (
             <div key={c.t} className="sanctuary-card p-10">

@@ -13,7 +13,7 @@ export const courses: Course[] = [
     slug: "yoga-foundation-course",
     title: "Yoga Foundation Course",
     group: "Beginner",
-    purpose: "An unhurried introduction to yoga — body, breath and the beginnings of stillness.",
+    purpose: "An unhurried introduction to yoga â€” body, breath and the beginnings of stillness.",
     duration: "8 weeks",
     level: "Beginner",
     includes: ["Yoga basics", "Asanas", "Breath awareness", "Yoga philosophy", "Daily practice"],
@@ -87,7 +87,7 @@ export const courses: Course[] = [
     group: "Special",
     purpose: "Playful practice that grows steady minds.",
     duration: "6 weeks",
-    level: "Ages 6–12",
+    level: "Ages 6â€“12",
     includes: ["Story-led asana", "Breath games", "Kindness practice", "Calm corners"],
   },
   {
@@ -96,7 +96,7 @@ export const courses: Course[] = [
     group: "Special",
     purpose: "Steadiness through the years of change.",
     duration: "6 weeks",
-    level: "Ages 13–18",
+    level: "Ages 13â€“18",
     includes: ["Confidence practice", "Exam calm", "Body respect", "Breath tools"],
   },
   {
@@ -303,7 +303,7 @@ export const events = [
   {
     slug: "himalayan-silence-retreat",
     title: "Himalayan Silence Retreat",
-    date: "12–17 October",
+    date: "12â€“17 October",
     place: "Foundation Ashram, Uttarkashi",
     kind: "Retreat",
     blurb: "Five days of noble silence in the high valleys, guided by senior teachers.",
@@ -314,7 +314,7 @@ export const events = [
     date: "Second Saturday, monthly",
     place: "Foundation Hall & Online",
     kind: "Workshop",
-    blurb: "A half day inside the breath — ratios, retention, and the science beneath them.",
+    blurb: "A half day inside the breath â€” ratios, retention, and the science beneath them.",
   },
   {
     slug: "community-satsang",

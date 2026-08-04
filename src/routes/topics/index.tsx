@@ -9,7 +9,7 @@ export const Route = createFileRoute("/topics/")({
       {
         name: "description",
         content:
-          "A digital library on yoga, meditation and wellbeing — philosophy, history, practice and science, written plainly for every level of study.",
+          "A digital library on yoga, meditation and wellbeing â€” philosophy, history, practice and science, written plainly for every level of study.",
       },
       { property: "og:title", content: "Knowledge Library | Rishi Sidhasamadhi Yoga" },
       {
@@ -32,7 +32,7 @@ function TopicsIndex() {
           </h1>
           <div className="rule-gold mx-auto mt-8" />
           <p className="mt-8 text-[1rem] leading-relaxed text-muted-foreground">
-            Forty-four pages on yoga, meditation and wellbeing — written to be read the way a book
+            Forty-four pages on yoga, meditation and wellbeing â€” written to be read the way a book
             is read, slowly and in order, with nothing sold in the margins.
           </p>
         </div>
