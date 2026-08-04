@@ -139,13 +139,15 @@ function Dashboard() {
                   <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {c.purpose}
                   </p>
-<Link
-                to="/courses/$slug/videos/"
-                params={{ slug: c.slug }}
-                className="mt-6 inline-block rounded-full border border-forest/25 px-5 py-2.5 text-[0.72rem] font-medium tracking-wide text-forest transition-colors hover:border-forest hover:bg-forest hover:text-primary-foreground"
-              >
-                Enrol in this program
-              </Link>
+                  {c.videos && c.videos.length > 0 && (
+                    <Link
+                      to="/courses/$slug/videos/"
+                      params={{ slug: c.slug }}
+                      className="mt-6 inline-block rounded-full border border-forest/25 px-5 py-2.5 text-[0.72rem] font-medium tracking-wide text-forest transition-colors hover:border-forest hover:bg-forest hover:text-primary-foreground"
+                    >
+                      Enrol in this program
+                    </Link>
+                  )}
                 </div>
               </Link>
             ))}
