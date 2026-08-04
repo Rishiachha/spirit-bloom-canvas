@@ -1,7 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Section, SectionHeader } from "@/components/site/Section";
 import { courses } from "@/lib/site-data";
-import heroSunrise from "@/assets/hero-sunrise.jpg";
 import founder from "@/assets/founder.jpg";
 
 export const Route = createFileRoute("/courses/$slug")({
@@ -44,13 +43,14 @@ const faqs = [
 
 function CoursePage() {
   const course = Route.useLoaderData();
+  const heroImage = course.image ?? "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1920&q=80";
 
   return (
     <>
       <section className="relative overflow-hidden pt-[90px]">
         <img
-          src={heroSunrise}
-          alt="Sunrise over mountains"
+          src={heroImage}
+          alt={course.title}
           width={1920}
           height={1088}
           className="absolute inset-0 h-full w-full object-cover"
@@ -61,7 +61,7 @@ function CoursePage() {
             to="/courses"
             className="text-[0.72rem] tracking-[0.2em] uppercase text-ivory/70 hover:text-ivory"
           >
-            â† All programs
+            â‹� All programs
           </Link>
           <h1 className="mt-8 max-w-3xl font-display text-5xl leading-[1.06] text-ivory sm:text-7xl">
             {course.title}
@@ -89,6 +89,18 @@ function CoursePage() {
           </div>
         </div>
       </section>
+
+      {/* Description */}
+      {course.description && (
+        <Section>
+          <div className="mx-auto max-w-3xl">
+            <SectionHeader eyebrow="About this program" title="Who this is for" />
+            <p className="mt-8 text-[0.98rem] leading-relaxed text-muted-foreground">
+              {course.description}
+            </p>
+          </div>
+        </Section>
+      )}
 
       {/* Curriculum */}
       <Section>

@@ -46,10 +46,10 @@ function CoursesIndex() {
         </div>
       </section>
 
-      {courseGroups.map((group, gi) => (
+{courseGroups.map((group, gi) => (
         <Section key={group.key} className={gi % 2 === 1 ? "bg-sand/50" : ""}>
           <SectionHeader
-            eyebrow={`${String(gi + 1).padStart(2, "0")} â€” Track`}
+            eyebrow={`${String(gi + 1).padStart(2, "0")} â€" Track`}
             title={group.label}
           />
           <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -60,32 +60,46 @@ function CoursesIndex() {
                   key={c.slug}
                   to="/courses/$slug"
                   params={{ slug: c.slug }}
-                  className="sanctuary-card flex flex-col p-9"
+                  className="sanctuary-card flex flex-col overflow-hidden"
                 >
-                  <p className="eyebrow">
-                    {c.level} Â· {c.duration}
-                  </p>
-                  <p className="mt-5 font-display text-[1.7rem] leading-tight text-forest">
-                    {c.title}
-                  </p>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
-                    {c.purpose}
-                  </p>
-                  <ul className="mt-6 flex flex-wrap gap-2">
-                    {c.includes.slice(0, 3).map((i) => (
-                      <li
-                        key={i}
-                        className="rounded-full border border-border px-3 py-1 text-[0.7rem] tracking-wide text-earth"
-                      >
-                        {i}
-                      </li>
-                    ))}
-                  </ul>
+                  {c.image && (
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={c.image}
+                        alt={c.title}
+                        loading="lazy"
+                        width={640}
+                        height={360}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="p-9">
+                    <p className="eyebrow">
+                      {c.level} Â· {c.duration}
+                    </p>
+                    <p className="mt-5 font-display text-[1.7rem] leading-tight text-forest">
+                      {c.title}
+                    </p>
+                    <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {c.purpose}
+                    </p>
+                    <ul className="mt-6 flex flex-wrap gap-2">
+                      {c.includes.slice(0, 3).map((i) => (
+                        <li
+                          key={i}
+                          className="rounded-full border border-border px-3 py-1 text-[0.7rem] tracking-wide text-earth"
+                        >
+                          {i}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </Link>
               ))}
           </div>
         </Section>
-      ))}
-    </>
-  );
-}
+))}
+     </>
+   );
+ }
