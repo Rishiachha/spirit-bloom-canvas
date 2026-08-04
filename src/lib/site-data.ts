@@ -168,7 +168,7 @@ export const courses: Course[] = [
     description: "Ageing brings changes that affect every dimension of daily life — balance becomes uncertain, joints become stiff, and the fear of falling can quietly shrink a person's world. Senior Citizens Yoga is designed to meet these challenges with patience and respect. Chair yoga makes the practice accessible regardless of mobility level. Joint care sequences gently maintain range of motion and reduce stiffness. Balance work is practiced safely, with props and support always available. Breath longevity practices support respiratory health and calm the nervous system. But beyond the physical, this program honours something deeper: the dignity of an older body that has carried a life's worth of experience. Yoga here is not about defying age — it is about inhabiting it with grace, strength, and quiet joy.",
     duration: "12 weeks",
     level: "Gentle",
-    image: "https://imgs.search.brave.com/5pIlTj8P2RpFQ9OE0AGlonocuXzuilEl2f10jf9Q5cU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/NzU3LzExNC9zbWFs/bC9haS1nZW5lcmF0/ZWQtc2VuaW9yLXlv/Z2EtY2xhc3MtaW4t/dGhlLWd5bS1mb3J3/b21lbi1mcmVlLXBo/b3RvLmpwZw",
+    image: "https://imgs.search.brave.com/2vcoY5WTYGQUWNT0qRIdBxRQ0EAw4mhj8hnpfJrqT9I/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdG9y/eXBvaW50LmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/OC9VbnRpdGxlZC1k/ZXNpZ24tNDQucG5n",
     includes: ["Chair yoga", "Joint care", "Balance work", "Breath longevity", "Gentle flow", "Fall prevention"],
   },
   {
