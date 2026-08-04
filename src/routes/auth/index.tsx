@@ -1,13 +1,27 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { useAuth } from "@/lib/auth";
-import { Section } from "@/components/site/Section";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { signIn, useSession } from "@/lib/auth";
+import hero from "@/assets/hero-sunrise.jpg";
+
+type Search = { redirect?: string };
 
 export const Route = createFileRoute("/auth/")({
+  validateSearch: (search: Record<string, unknown>): Search => ({
+    redirect: typeof search.redirect === "string" ? search.redirect : undefined,
+  }),
   head: () => ({
     meta: [
-      { title: "Sign In | Rishi Sidhasamadhi Yoga Foundation" },
-      { name: "description", content: "Sign in or create an account for your yoga journey." },
+      { title: "Sign In or Create Account | Rishi Sidhasamadhi Yoga Foundation" },
+      {
+        name: "description",
+        content:
+          "Sign in to continue your practice journey, or create an account to track streaks, courses and daily verses.",
+      },
+      { property: "og:title", content: "Sign In | Rishi Sidhasamadhi Yoga" },
+      {
+        property: "og:description",
+        content: "Enter your practice journey — streaks, courses and daily guidance.",
+      },
     ],
   }),
   component: AuthPage,
@@ -15,129 +29,126 @@ export const Route = createFileRoute("/auth/")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const { user, signIn, signUp } = useAuth();
+  const { user, ready } = useSession();
+  const { redirect } = Route.useSearch();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
-  if (user) {
-    navigate({ to: "/dashboard" });
-    return null;
-  }
+  const target = redirect === "/dashboard" ? "/dashboard" : "/dashboard";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (ready && user) navigate({ to: target, replace: true });
+  }, [ready, user, navigate, target]);
+
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    if (!email || !password) {
-      setError("Please fill in all fields.");
-      return;
-    }
-    if (mode === "signin") {
-      signIn(email, password);
-    } else {
-      if (!name) {
-        setError("Please enter your name.");
-        return;
-      }
-      signUp(name, email, password);
-    }
-    navigate({ to: "/dashboard" });
+    if (!email.includes("@")) return setError("Please enter a valid email address.");
+    if (password.length < 6) return setError("Your password needs at least six characters.");
+    if (mode === "signup" && name.trim().length < 2) return setError("Please tell us your name.");
+    setError(null);
+    signIn({ name: mode === "signup" ? name.trim() : email.split("@")[0], email });
+    navigate({ to: target, replace: true });
   };
 
   return (
-    <>
-      <section className="relative overflow-hidden pt-[90px]">
-        <div className="absolute inset-0 bg-forest/95" />
-        <div className="relative mx-auto max-w-[1400px] px-6 py-28 lg:px-10">
-          <Link
-            to="/"
-            className="text-[0.72rem] tracking-[0.2em] uppercase text-ivory/70 hover:text-ivory"
-          >
-            â‹� Home
-          </Link>
-          <h1 className="mt-8 font-display text-4xl text-ivory sm:text-5xl">
-            {mode === "signin" ? "Welcome back" : "Begin your journey"}
+    <section className="relative min-h-screen pt-[90px]">
+      <img
+        src={hero}
+        alt="Sunrise over the Himalayan foothills"
+        width={1920}
+        height={1088}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0" style={{ background: "oklch(0.26 0.03 120 / 0.68)" }} />
+      <div className="relative mx-auto grid max-w-[1400px] items-center gap-16 px-6 py-24 lg:grid-cols-2 lg:px-10">
+        <div>
+          <p className="eyebrow text-ivory/70">Your Practice</p>
+          <h1 className="mt-6 font-display text-5xl leading-[1.08] text-ivory sm:text-6xl">
+            The journey continues where you left it.
           </h1>
-          <p className="mt-4 text-[1rem] leading-relaxed text-ivory/75">
-            {mode === "signin"
-              ? "Sign in to access your dashboard and continue your practice."
-              : "Create an account to start tracking your yoga journey."}
+          <div className="rule-gold mt-8" />
+          <p className="mt-8 max-w-md text-[1rem] leading-relaxed text-ivory/80">
+            Sign in to see your practice streak, course progress, saved videos and the verse chosen
+            for today. Your account is only ever used to hold your practice — nothing else.
           </p>
         </div>
-      </section>
 
-      <Section>
-        <div className="mx-auto max-w-md">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="rounded-3xl bg-card/95 p-10 shadow-lift backdrop-blur-sm sm:p-12">
+          <div className="flex gap-8 border-b border-border">
+            {(["signin", "signup"] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => {
+                  setMode(m);
+                  setError(null);
+                }}
+                className="relative pb-4 text-[0.74rem] tracking-[0.18em] uppercase transition-colors"
+                style={{
+                  color: mode === m ? "var(--forest)" : "var(--muted-foreground)",
+                }}
+              >
+                {m === "signin" ? "Sign In" : "Create Account"}
+                {mode === m && (
+                  <span className="absolute -bottom-px left-0 h-px w-full bg-gold" />
+                )}
+              </button>
+            ))}
+          </div>
+
+          <form onSubmit={submit} className="mt-9 space-y-6">
             {mode === "signup" && (
-              <div>
-                <label className="block text-sm font-medium text-foreground">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
-                  placeholder="Your name"
-                />
-              </div>
+              <Field label="Your name" value={name} onChange={setName} type="text" />
             )}
-            <div>
-              <label className="block text-sm font-medium text-foreground">
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
-                placeholder="you@example.com"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-forest focus:outline-none focus:ring-1 focus:ring-forest"
-                placeholder="Your password"
-              />
-            </div>
-            {error && (
-              <p className="text-sm text-red-600">{error}</p>
-            )}
+            <Field label="Email" value={email} onChange={setEmail} type="email" />
+            <Field label="Password" value={password} onChange={setPassword} type="password" />
+
+            {error && <p className="text-sm text-destructive">{error}</p>}
+
             <button
               type="submit"
-              className="w-full rounded-full bg-forest px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-ivory transition-colors hover:bg-forest/90"
+              className="w-full rounded-full bg-forest px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-primary-foreground transition-colors hover:bg-gold hover:text-ink"
             >
-              {mode === "signin" ? "Sign In" : "Create Account"}
+              {mode === "signin" ? "Enter my journey" : "Begin my journey"}
             </button>
           </form>
 
-          <div className="mt-8 border-t border-border pt-6 text-center">
-            <p className="text-sm text-muted-foreground">
-              {mode === "signin"
-                ? "Don't have an account?"
-                : "Already have an account?"}
-              <button
-                onClick={() => {
-                  setMode(mode === "signin" ? "signup" : "signin");
-                  setError("");
-                }}
-                className="ml-1 font-medium text-forest underline underline-offset-4 hover:text-forest/80"
-              >
-                {mode === "signin" ? "Sign up" : "Sign in"}
-              </button>
-            </p>
-          </div>
+          <p className="mt-8 text-xs leading-relaxed text-muted-foreground">
+            By continuing you accept the Foundation's practice guidelines. Return to the{" "}
+            <Link to="/" className="text-earth underline-offset-4 hover:underline">
+              home page
+            </Link>
+            .
+          </p>
         </div>
-      </Section>
-    </>
+      </div>
+    </section>
+  );
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  type,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type: string;
+}) {
+  return (
+    <label className="block">
+      <span className="eyebrow">{label}</span>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="mt-3 w-full border-b border-border bg-transparent pb-3 font-display text-xl text-forest outline-none transition-colors focus:border-gold"
+      />
+    </label>
   );
 }

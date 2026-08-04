@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { courseGroups, courses, topicSections, slugify } from "@/lib/site-data";
-import { useAuth } from "@/lib/auth";
+import { signOut, useSession } from "@/lib/auth";
+
 
 type MegaKey = "discover-yourself" | "yoga" | "meditation" | "health-wellness" | "courses";
 
@@ -12,6 +13,8 @@ export function Navbar() {
   const [open, setOpen] = useState<MegaKey | null>(null);
   const [mobile, setMobile] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { user, ready } = useSession();
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,8 +24,6 @@ export function Navbar() {
   }, []);
 
   const section = topicSections.find((s) => s.key === open);
-
-  const { user } = useAuth();
 
   return (
     <header
@@ -82,13 +83,36 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link
-              to={user ? "/dashboard" : "/auth"}
-              className="hidden rounded-full border border-forest/25 px-5 py-2.5 text-[0.78rem] font-medium tracking-wide text-forest transition-colors hover:border-forest hover:bg-forest hover:text-primary-foreground lg:inline-flex"
+            {ready && user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="hidden rounded-full border border-forest/25 px-5 py-2.5 text-[0.78rem] font-medium tracking-wide text-forest transition-colors hover:border-forest hover:bg-forest hover:text-primary-foreground lg:inline-flex"
+                >
+                  My Journey
+                </Link>
+                <button
+                  onClick={signOut}
+                  className="hidden text-[0.72rem] tracking-[0.16em] uppercase text-muted-foreground transition-colors hover:text-forest lg:inline-flex"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/auth"
+                search={{ redirect: "/dashboard" }}
+                className="hidden rounded-full border border-forest/25 px-5 py-2.5 text-[0.78rem] font-medium tracking-wide text-forest transition-colors hover:border-forest hover:bg-forest hover:text-primary-foreground lg:inline-flex"
+              >
+                My Journey
+              </Link>
+            )}
+
+            <button
+              className="lg:hidden"
+              aria-label="Menu"
+              onClick={() => setMobile((v) => !v)}
             >
-              {user ? "My Journey" : "Start Your Journey"}
-            </Link>
-            <button className="lg:hidden" aria-label="Menu" onClick={() => setMobile((v) => !v)}>
               {mobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
@@ -203,14 +227,26 @@ export function Navbar() {
               </Link>
             </li>
             <li>
-              <Link
-                to={user ? "/dashboard" : "/auth"}
-                onClick={() => setMobile(false)}
-                className="font-display text-2xl text-forest"
-              >
-                {user ? "My Journey" : "Start Your Journey"}
-              </Link>
+              {ready && user ? (
+                <Link
+                  to="/dashboard"
+                  onClick={() => setMobile(false)}
+                  className="font-display text-2xl text-forest"
+                >
+                  My Journey
+                </Link>
+              ) : (
+                <Link
+                  to="/auth"
+                  search={{ redirect: "/dashboard" }}
+                  onClick={() => setMobile(false)}
+                  className="font-display text-2xl text-forest"
+                >
+                  Sign In · My Journey
+                </Link>
+              )}
             </li>
+
           </ul>
         </div>
       )}

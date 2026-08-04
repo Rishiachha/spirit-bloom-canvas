@@ -1,10 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Section } from "@/components/site/Section";
 import { courses, sanskritQuotes } from "@/lib/site-data";
+import { useSession } from "@/lib/auth";
 import river from "@/assets/river.jpg";
 import community from "@/assets/community.jpg";
-import { useAuth } from "@/lib/auth";
-import { useEffect } from "react";
+
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/dashboard/")({
       {
         name: "description",
         content:
-          "Your personal practice journey â€” streaks, course progress, recommended programs, video library, achievements and the verse of the day.",
+          "Your personal practice journey — streaks, course progress, recommended programs, video library, achievements and the verse of the day.",
       },
       { property: "og:title", content: "My Journey | Rishi Sidhasamadhi Yoga" },
       {
@@ -28,17 +29,21 @@ export const Route = createFileRoute("/dashboard/")({
 const quote = sanskritQuotes[2];
 
 function Dashboard() {
-  const { user } = useAuth();
   const navigate = useNavigate();
+  const { user, ready } = useSession();
 
   useEffect(() => {
-    if (!user) {
-      navigate({ to: "/auth" });
+    if (ready && !user) {
+      navigate({ to: "/auth", search: { redirect: "/dashboard" }, replace: true });
     }
-  }, [user, navigate]);
+  }, [ready, user, navigate]);
 
-  if (!user) {
-    return null;
+  if (!ready || !user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-6 pt-[90px]">
+        <p className="eyebrow">Opening your journey…</p>
+      </div>
+    );
   }
 
   return (
@@ -53,12 +58,13 @@ function Dashboard() {
         />
         <div className="absolute inset-0" style={{ background: "oklch(0.3 0.03 150 / 0.62)" }} />
         <div className="relative mx-auto max-w-[1400px] px-6 py-24 lg:px-10">
-          <p className="eyebrow text-ivory/70">Good morning, Ananya</p>
+          <p className="eyebrow text-ivory/70">Good morning, {user.name}</p>
+
           <h1 className="mt-5 font-display text-5xl leading-tight text-ivory sm:text-6xl">
             Day 47 of your practice.
           </h1>
           <p className="mt-6 max-w-lg text-[1rem] leading-relaxed text-ivory/80">
-            Today's sequence is fifteen minutes â€” breath, three standing postures, and a short
+            Today's sequence is fifteen minutes — breath, three standing postures, and a short
             sitting.
           </p>
           <button className="mt-9 rounded-full bg-ivory px-9 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-gold hover:text-ink">
@@ -119,10 +125,7 @@ function Dashboard() {
             <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
               {["Foundations", "Breath", "Stillness", "Service"].map((s, i) => (
                 <div key={s} className="bg-card p-6">
-                  <p
-                    className="font-display text-3xl"
-                    style={{ color: i < 2 ? "var(--gold)" : "var(--earth)" }}
-                  >
+                  <p className="font-display text-3xl" style={{ color: i < 2 ? "var(--gold)" : "var(--earth)" }}>
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <p className="mt-4 font-display text-xl text-forest">{s}</p>
@@ -150,14 +153,12 @@ function Dashboard() {
           <div className="sanctuary-card p-9">
             <p className="eyebrow">Achievements</p>
             <ul className="mt-7 space-y-4">
-              {["First 21 mornings", "Seven days of silence", "Completed Breath Module"].map(
-                (a) => (
-                  <li key={a} className="flex items-center gap-4">
-                    <span className="h-9 w-9 shrink-0 rounded-full border border-gold/50" />
-                    <span className="font-display text-lg text-forest">{a}</span>
-                  </li>
-                ),
-              )}
+              {["First 21 mornings", "Seven days of silence", "Completed Breath Module"].map((a) => (
+                <li key={a} className="flex items-center gap-4">
+                  <span className="h-9 w-9 shrink-0 rounded-full border border-gold/50" />
+                  <span className="font-display text-lg text-forest">{a}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -179,7 +180,7 @@ function Dashboard() {
                 to="/events"
                 className="mt-6 inline-block text-[0.72rem] tracking-[0.2em] uppercase text-earth hover:text-forest"
               >
-                See gatherings â†’
+                See gatherings →
               </Link>
             </div>
           </div>
@@ -187,15 +188,13 @@ function Dashboard() {
           <div className="sanctuary-card p-9">
             <p className="eyebrow">Video library</p>
             <ul className="mt-7 divide-y divide-border">
-              {[
-                "Morning Sun Salutations Â· 18 min",
-                "Nadi Shodhana Â· 9 min",
-                "Yoga Nidra Â· 32 min",
-              ].map((v) => (
-                <li key={v} className="py-4 font-display text-lg text-forest">
-                  {v}
-                </li>
-              ))}
+              {["Morning Sun Salutations · 18 min", "Nadi Shodhana · 9 min", "Yoga Nidra · 32 min"].map(
+                (v) => (
+                  <li key={v} className="py-4 font-display text-lg text-forest">
+                    {v}
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         </div>
@@ -211,7 +210,7 @@ function Dashboard() {
                 className="sanctuary-card p-9"
               >
                 <p className="eyebrow">
-                  {c.level} Â· {c.duration}
+                  {c.level} · {c.duration}
                 </p>
                 <p className="mt-4 font-display text-2xl leading-tight text-forest">{c.title}</p>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.purpose}</p>
