@@ -157,7 +157,7 @@ export const courses: Course[] = [
     description: "The postpartum period is one of the most physically and emotionally vulnerable times in a woman's life. The body has been through profound change, sleep is fragmented, and the demands of a newborn can feel overwhelming. The New Mothers Wellness Program approaches this transition with extraordinary gentleness. Core recovery is introduced gradually, never forcing the body back to what it was before. Rest practice is not a luxury but a necessity — and mothers are taught to find moments of restoration even in the busiest days. Emotional care practices address the hormonal shifts and identity changes that often go unspoken. Mother circles create a community of women who understand exactly what this season of life feels like. You are not alone, and you do not need to rush back to who you were.",
     duration: "8 weeks",
     level: "Postnatal",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1920&q=80",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1920&q=80",
     includes: ["Core recovery", "Rest practice", "Emotional care", "Mother circles", "Gentle movement", "Sleep support"],
   },
   {
@@ -168,7 +168,7 @@ export const courses: Course[] = [
     description: "Ageing brings changes that affect every dimension of daily life — balance becomes uncertain, joints become stiff, and the fear of falling can quietly shrink a person's world. Senior Citizens Yoga is designed to meet these challenges with patience and respect. Chair yoga makes the practice accessible regardless of mobility level. Joint care sequences gently maintain range of motion and reduce stiffness. Balance work is practiced safely, with props and support always available. Breath longevity practices support respiratory health and calm the nervous system. But beyond the physical, this program honours something deeper: the dignity of an older body that has carried a life's worth of experience. Yoga here is not about defying age — it is about inhabiting it with grace, strength, and quiet joy.",
     duration: "12 weeks",
     level: "Gentle",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&q=80",
+    image: "https://images.unsplash.com/photo-YoRyMScmmfE?w=1920&q=80",
     includes: ["Chair yoga", "Joint care", "Balance work", "Breath longevity", "Gentle flow", "Fall prevention"],
   },
   {
