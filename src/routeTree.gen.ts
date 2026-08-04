@@ -19,6 +19,8 @@ import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
+import { Route as CoursesSlugVideosIndexRouteImport } from './routes/courses/$slug/videos/index'
+import { Route as CoursesSlugVideosVideoIdRouteImport } from './routes/courses/$slug/videos/$videoId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -70,11 +72,22 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
   path: '/courses/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoursesSlugVideosIndexRoute = CoursesSlugVideosIndexRouteImport.update({
+  id: '/videos/',
+  path: '/videos/',
+  getParentRoute: () => CoursesSlugRoute,
+} as any)
+const CoursesSlugVideosVideoIdRoute =
+  CoursesSlugVideosVideoIdRouteImport.update({
+    id: '/videos/$videoId',
+    path: '/videos/$videoId',
+    getParentRoute: () => CoursesSlugRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/courses/$slug': typeof CoursesSlugRoute
+  '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/auth/': typeof AuthIndexRoute
@@ -82,11 +95,13 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
+  '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
+  '/courses/$slug/videos/': typeof CoursesSlugVideosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/courses/$slug': typeof CoursesSlugRoute
+  '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/topics/$slug': typeof TopicsSlugRoute
   '/about': typeof AboutIndexRoute
   '/auth': typeof AuthIndexRoute
@@ -94,12 +109,14 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
   '/topics': typeof TopicsIndexRoute
+  '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
+  '/courses/$slug/videos': typeof CoursesSlugVideosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/courses/$slug': typeof CoursesSlugRoute
+  '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/auth/': typeof AuthIndexRoute
@@ -107,6 +124,8 @@ export interface FileRoutesById {
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
+  '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
+  '/courses/$slug/videos/': typeof CoursesSlugVideosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +140,8 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/events/'
     | '/topics/'
+    | '/courses/$slug/videos/$videoId'
+    | '/courses/$slug/videos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +154,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/events'
     | '/topics'
+    | '/courses/$slug/videos/$videoId'
+    | '/courses/$slug/videos'
   id:
     | '__root__'
     | '/'
@@ -145,12 +168,14 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/events/'
     | '/topics/'
+    | '/courses/$slug/videos/$videoId'
+    | '/courses/$slug/videos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  CoursesSlugRoute: typeof CoursesSlugRoute
+  CoursesSlugRoute: typeof CoursesSlugRouteWithChildren
   TopicsSlugRoute: typeof TopicsSlugRoute
   AboutIndexRoute: typeof AboutIndexRoute
   AuthIndexRoute: typeof AuthIndexRoute
@@ -232,13 +257,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/courses/$slug/videos/': {
+      id: '/courses/$slug/videos/'
+      path: '/videos'
+      fullPath: '/courses/$slug/videos/'
+      preLoaderRoute: typeof CoursesSlugVideosIndexRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
+    '/courses/$slug/videos/$videoId': {
+      id: '/courses/$slug/videos/$videoId'
+      path: '/videos/$videoId'
+      fullPath: '/courses/$slug/videos/$videoId'
+      preLoaderRoute: typeof CoursesSlugVideosVideoIdRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
   }
 }
+
+interface CoursesSlugRouteChildren {
+  CoursesSlugVideosVideoIdRoute: typeof CoursesSlugVideosVideoIdRoute
+  CoursesSlugVideosIndexRoute: typeof CoursesSlugVideosIndexRoute
+}
+
+const CoursesSlugRouteChildren: CoursesSlugRouteChildren = {
+  CoursesSlugVideosVideoIdRoute: CoursesSlugVideosVideoIdRoute,
+  CoursesSlugVideosIndexRoute: CoursesSlugVideosIndexRoute,
+}
+
+const CoursesSlugRouteWithChildren = CoursesSlugRoute._addFileChildren(
+  CoursesSlugRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  CoursesSlugRoute: CoursesSlugRoute,
+  CoursesSlugRoute: CoursesSlugRouteWithChildren,
   TopicsSlugRoute: TopicsSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
   AuthIndexRoute: AuthIndexRoute,

@@ -70,12 +70,13 @@ function CoursePage() {
             {course.purpose}
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-8">
-            <Link
-              to="/dashboard"
-              className="rounded-full bg-ivory px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-gold hover:text-ink"
-            >
-              Enrol in this program
-            </Link>
+          <Link
+            to="/courses/$slug/videos/"
+            params={{ slug: course.slug }}
+            className="rounded-full bg-ivory px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-gold hover:text-ink"
+          >
+            Enrol in this program
+          </Link>
             <div className="flex gap-10 text-ivory/80">
               <div>
                 <p className="eyebrow text-ivory/60">Duration</p>
@@ -204,10 +205,11 @@ function CoursePage() {
             Places are limited so that every student can be known by name.
           </p>
           <Link
-            to="/dashboard"
+            to="/courses/$slug/videos/"
+            params={{ slug: course.slug }}
             className="mt-10 inline-block rounded-full bg-ivory px-10 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-gold hover:text-ink"
           >
-            Reserve your place
+            Start watching
           </Link>
         </div>
       </Section>
