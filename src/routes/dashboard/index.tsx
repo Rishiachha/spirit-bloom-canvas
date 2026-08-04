@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
-import { courses, sanskritQuotes } from "@/lib/site-data";
+import { courses, liveClasses, sanskritQuotes } from "@/lib/site-data";
 import { useSession } from "@/lib/auth";
 import river from "@/assets/river.jpg";
 
@@ -148,6 +148,31 @@ function Dashboard() {
               </Link>
                 </div>
               </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12">
+          <div className="flex items-end justify-between">
+            <p className="eyebrow">Live sessions</p>
+            <Link
+              to="/events"
+              className="text-[0.72rem] tracking-[0.2em] uppercase text-earth hover:text-forest"
+            >
+              View all →
+            </Link>
+          </div>
+          <div className="mt-7 grid gap-8 lg:grid-cols-2">
+            {liveClasses.map((lc) => (
+              <div key={lc.slug} className="sanctuary-card p-9">
+                <p className="eyebrow">{lc.kind}</p>
+                <p className="mt-5 font-display text-xl text-forest">{lc.title}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{lc.date}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{lc.place}</p>
+                <p className="mt-4 text-sm leading-relaxed text-foreground/80">
+                  {lc.blurb}
+                </p>
+              </div>
             ))}
           </div>
         </div>

@@ -1,3 +1,12 @@
+export type Video = {
+  id: string;
+  title: string;
+  duration: string;
+  thumbnail: string;
+  highlights: string[];
+  description: string;
+};
+
 export type Course = {
   slug: string;
   title: string;
@@ -8,6 +17,7 @@ export type Course = {
   level: string;
   image?: string;
   includes: string[];
+  videos?: Video[];
 };
 
 export const courses: Course[] = [
@@ -19,6 +29,48 @@ export const courses: Course[] = [
     duration: "8 weeks",
     level: "Beginner",
     includes: ["Yoga basics", "Asanas", "Breath awareness", "Yoga philosophy", "Daily practice"],
+    videos: [
+      {
+        id: "yfc-1",
+        title: "Introduction to Yoga",
+        duration: "12 min",
+        thumbnail: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=640&q=80",
+        highlights: ["What yoga is", "Why it matters", "Setting up your space"],
+        description: "An introduction to the foundations of yoga.",
+      },
+      {
+        id: "yfc-2",
+        title: "Breath Awareness",
+        duration: "15 min",
+        thumbnail: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=640&q=80",
+        highlights: ["Diaphragmatic breathing", "Breath ratios", "Calming the nervous system"],
+        description: "Learn the basics of diaphragmatic breathing.",
+      },
+      {
+        id: "yfc-3",
+        title: "Standing Asanas",
+        duration: "20 min",
+        thumbnail: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=640&q=80",
+        highlights: ["Mountain pose", "Warrior sequences", "Alignment cues"],
+        description: "A guided sequence of standing asanas with alignment cues.",
+      },
+      {
+        id: "yfc-4",
+        title: "Yoga Philosophy",
+        duration: "18 min",
+        thumbnail: "https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=640&q=80",
+        highlights: ["Eight limbs of yoga", "Yamas and niyamas", "Applying philosophy daily"],
+        description: "An overview of the eight limbs of yoga.",
+      },
+      {
+        id: "yfc-5",
+        title: "Daily Practice Flow",
+        duration: "25 min",
+        thumbnail: "https://images.unsplash.com/photo-1575052814085-f385151767da?w=640&q=80",
+        highlights: ["Full sequence", "Breath sync", "Cool down"],
+        description: "A complete daily practice flow.",
+      },
+    ],
   },
   {
     slug: "meditation-foundation-course",
@@ -28,6 +80,32 @@ export const courses: Course[] = [
     duration: "6 weeks",
     level: "Beginner",
     includes: ["Mindfulness", "Breath meditation", "Concentration", "Inner awareness"],
+    videos: [
+      {
+        id: "mfc-1",
+        title: "Why Meditate",
+        duration: "10 min",
+        thumbnail: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=640&q=80",
+        highlights: ["Benefits of meditation", "What to expect", "Setting intentions"],
+        description: "Explore the benefits of meditation and set intentions.",
+      },
+      {
+        id: "mfc-2",
+        title: "Breath Meditation",
+        duration: "15 min",
+        thumbnail: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=640&q=80",
+        highlights: ["Anchoring to breath", "Dealing with distractions", "Building focus"],
+        description: "A guided breath meditation to build concentration.",
+      },
+      {
+        id: "mfc-3",
+        title: "Body Scan",
+        duration: "20 min",
+        thumbnail: "https://images.unsplash.com/photo-1575052814085-f385151767da?w=640&q=80",
+        highlights: ["Progressive relaxation", "Body awareness", "Releasing tension"],
+        description: "A guided body scan to develop awareness.",
+      },
+    ],
   },
   {
     slug: "teacher-training-program",
@@ -348,6 +426,41 @@ export const events = [
   {
     slug: "community-satsang",
     title: "Community Satsang",
+    date: "Every full moon",
+    place: "Courtyard, open to all",
+    kind: "Community",
+    blurb: "Chanting, silence and shared food. No registration, no fee, no requirement.",
+  },
+];
+
+export const liveClasses = [
+  {
+    slug: "morning-pranayama",
+    title: "Morning Pranayama",
+    date: "Every Monday & Thursday",
+    place: "Foundation Hall & Online",
+    kind: "Breathwork",
+    blurb: "Start the day with guided breathwork — ratios, retention, and the science beneath them.",
+  },
+  {
+    slug: "sunrise-yoga-flow",
+    title: "Sunrise Yoga Flow",
+    date: "Every Wednesday & Saturday",
+    place: "Riverbank Grounds, Rishikesh",
+    kind: "Asana",
+    blurb: "A gentle flow at sunrise — alignment, breath, and stillness before the day begins.",
+  },
+  {
+    slug: "guided-meditation-session",
+    title: "Guided Meditation Session",
+    date: "Every Friday",
+    place: "Online",
+    kind: "Meditation",
+    blurb: "A 30-minute guided meditation for focus, calm, and inner clarity.",
+  },
+  {
+    slug: "satsang-circle",
+    title: "Satsang Circle",
     date: "Every full moon",
     place: "Courtyard, open to all",
     kind: "Community",
