@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, Outlet, useMatch } from "@tanstack/react-router";
 import { Section, SectionHeader } from "@/components/site/Section";
 import { courses } from "@/lib/site-data";
 import founder from "@/assets/founder.jpg";
@@ -43,9 +43,10 @@ const faqs = [
 
 function CoursePage() {
   const course = Route.useLoaderData();
-  const isVideosPage = typeof window !== "undefined" && window.location.pathname.includes("/videos/");
+  const isCourseDetail = useMatch({ from: "/courses/$slug" });
+  const heroImage = course.image ?? "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1920&q=80";
 
-  if (isVideosPage) {
+  if (!isCourseDetail) {
     return (
       <>
         <section className="relative overflow-hidden pt-[90px]">
@@ -71,8 +72,6 @@ function CoursePage() {
       </>
     );
   }
-
-  const heroImage = course.image ?? "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1920&q=80";
 
   return (
     <>
