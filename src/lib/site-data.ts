@@ -91,7 +91,7 @@ export const courses: Course[] = [
     description: "Children aged 6 to 12 are in a formative stage where curiosity, imagination, and emotional sensitivity shape every experience. Their minds are naturally absorbent but easily scattered, making focused practice both challenging and deeply beneficial. Our Children Yoga Program uses story-led movement, breath games, and kindness practice to channel their energy into calm, confident presence. Rather than demanding stillness, we meet children where they are — through play, narrative, and gentle guidance. Over six weeks, they develop body awareness, emotional regulation, and the habit of pausing before reacting. These are not just yoga lessons; they are foundational skills for how a child relates to their own mind and body for life.",
     duration: "6 weeks",
     level: "Ages 6–12",
-    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1920&q=80",
+    image: "https://imgs.search.brave.com/TSrdxQuLi-TfO85s57eKIZFkuSOzqc_OOvi2UGGUgFE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTE4/NDI4Mzk1Mi9waG90/by9tdWx0aS1ldGhu/aWMtZWxlbWVudGFy/eS1zdHVkZW50cy1z/dHJldGNoaW5nLWlu/LWd5bS1jbGFzcy1z/dG9jay1waG90by5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/NmVRS0F6dmtLWHRz/OEZ1YktZR0k1WWxL/QzhuRjVjYXpYc1Fj/cGpSZmYyTT0",
     includes: ["Story-led asana", "Breath games", "Kindness practice", "Calm corners", "Creative movement", "Relaxation stories"],
   },
   {
@@ -102,7 +102,7 @@ export const courses: Course[] = [
     description: "Adolescence is a period of profound neurological and emotional transformation. The teenage brain is rewiring itself at a rapid pace, which often manifests as mood swings, anxiety, self-consciousness, and a desperate need for belonging. Teen Yoga meets these realities with practice that honours their experience rather than dismissing it. Through confidence-building sequences, exam-calming breathwork, and body respect exercises, teens learn to navigate the turbulence of growing up with steadiness and self-compassion. They discover that yoga is not about performance or perfection — it is about showing up for themselves, exactly as they are, in a body that is changing every day.",
     duration: "6 weeks",
     level: "Ages 13–18",
-    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920&q=80",
+    image: "https://imgs.search.brave.com/ImXVJZpkLF8HHJ9soNSHr7-ZHmxdxhQpIn63i4OF0CM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc3F1YXJlc3Bh/Y2UtY2RuLmNvbS9j/b250ZW50L3YxLzU4/Y2FiNjU5OWRlNGJi/N2I2MmFlMzg4ZS8z/N2ZkMjBjMy1kOWRm/LTRmM2YtOTM1Zi1i/ZmRkZjVmYWRlMjIv/eW9nYS10ZWVuYWdl/cnMtdGVlbnMtZ2ly/bHMtbWVkaWF0aW9u/LmpwZw",
     includes: ["Confidence practice", "Exam calm", "Body respect", "Breath tools", "Mindful movement", "Stress resilience"],
   },
   {
@@ -113,7 +113,7 @@ export const courses: Course[] = [
     description: "College life demands more than academic ability — it requires sustained focus, emotional balance, and the capacity to recover from setbacks. Students face a unique combination of intellectual pressure, social uncertainty, sleep disruption, and identity exploration. The College Students Wellness Program addresses these specific challenges with practices that sharpen focus, release accumulated stress, repair disrupted sleep patterns, and build peer support networks. Each session is designed to fit into a student's busy schedule while delivering deep, lasting benefits. The goal is not just to survive these years but to thrive in them — with clarity, rest, and genuine connection.",
     duration: "6 weeks",
     level: "All levels",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110eadf?w=1920&q=80",
+    image: "https://imgs.search.brave.com/It5A0QqeCAFHfwvuo_4Gq1YgNTDcelSt2E79lqZT3Zo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvODEw/MjQ3ODEyL3Bob3Rv/L3VuaXZlcnNpdHkt/c3R1ZGVudHMtbWVk/aXRhdGluZy10b2dl/dGhlci5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9MWxKeWJO/STR6NTB0b2FkNVk2/WEt6S1l2V3l5dlZn/YVA5X19hUFNuVU5w/UT0",
     includes: ["Focus practice", "Stress release", "Sleep repair", "Peer circles", "Study breathwork", "Evening wind-down"],
   },
   {
@@ -124,7 +124,7 @@ export const courses: Course[] = [
     description: "Working professionals carry their stress in their shoulders, their minds in their inboxes, and their exhaustion into every evening. The demands of a career often mean that self-care is the first thing to be sacrificed. Our program is designed for people who have limited time but deep need. Through desk-release sequences, micro practices that fit between meetings, and evening unwinding routines, professionals learn to interrupt the cycle of tension and burnout. The program also includes weekend depth sessions that allow for deeper exploration and restoration. Yoga here is not another item on the to-do list — it is a deliberate act of reclaiming one's own well-being amid the demands of work.",
     duration: "8 weeks",
     level: "All levels",
-    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1920&q=80",
+    image: "https://imgs.search.brave.com/XKYolv1EfmfXR6UNT7v3EE6D1r0DglU8q7wpR4EUn5Q/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWNsZWFybi5zaGlu/ZS5jb20vbC9tL2lt/YWdlcy9ibG9nL3lv/Z2FfZm9yX3dvcmtp/bmdfcHJvZmVzc2lv/bmFscy53ZWJw",
     includes: ["Desk release", "Micro practices", "Evening unwinding", "Weekend depth", "Commute breathwork", "Boundary setting"],
   },
   {
@@ -146,7 +146,7 @@ export const courses: Course[] = [
     description: "Pregnancy is a time of extraordinary physical and emotional transformation. The body changes rapidly, the nervous system is in overdrive, and the anticipation of parenthood can bring both joy and anxiety. Prenatal Yoga is designed to support the pregnant body with safe, gentle asana that honours each trimester's unique needs. Pelvic breathwork prepares the body for labour, while deep relaxation techniques build the inner calm needed for childbirth and beyond. Each practice is adapted to the stage of pregnancy, ensuring that every mother-to-be feels supported, safe, and connected to the life growing within her. This is yoga that meets the body exactly where it is — today.",
     duration: "Trimester-based",
     level: "Prenatal",
-    image: "https://images.unsplash.com/photo-1545389336-ca0f1c38445c?w=1920&q=80",
+    image: "https://www.yogarenewteachertraining.com/wp-content/uploads/2024/02/Cow-Pose-1536x1024.jpg",
     includes: ["Safe asana", "Pelvic breath", "Birth preparation", "Deep relaxation", "Trimester-specific sequences", "Partner connection"],
   },
   {
@@ -157,7 +157,7 @@ export const courses: Course[] = [
     description: "The postpartum period is one of the most physically and emotionally vulnerable times in a woman's life. The body has been through profound change, sleep is fragmented, and the demands of a newborn can feel overwhelming. The New Mothers Wellness Program approaches this transition with extraordinary gentleness. Core recovery is introduced gradually, never forcing the body back to what it was before. Rest practice is not a luxury but a necessity — and mothers are taught to find moments of restoration even in the busiest days. Emotional care practices address the hormonal shifts and identity changes that often go unspoken. Mother circles create a community of women who understand exactly what this season of life feels like. You are not alone, and you do not need to rush back to who you were.",
     duration: "8 weeks",
     level: "Postnatal",
-    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=1920&q=80",
+    image: "https://imgs.search.brave.com/bo1q-gOOFA7usUD2xabdbGPrXNai49B04RyaiyNpxZI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTE1/MDQ4MjczNy9waG90/by9tb3RoZXJzLXN0/cmV0Y2hpbmctZG9p/bmcteW9nYS1pbi10/aGUtcGFyay5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9VFhV/bjBVZm1tWjFQd1VE/Q3AxbHJKcUhuT1ow/TUhSWXp5U0lURHNz/TEdMMD0",
     includes: ["Core recovery", "Rest practice", "Emotional care", "Mother circles", "Gentle movement", "Sleep support"],
   },
   {
@@ -168,7 +168,7 @@ export const courses: Course[] = [
     description: "Ageing brings changes that affect every dimension of daily life — balance becomes uncertain, joints become stiff, and the fear of falling can quietly shrink a person's world. Senior Citizens Yoga is designed to meet these challenges with patience and respect. Chair yoga makes the practice accessible regardless of mobility level. Joint care sequences gently maintain range of motion and reduce stiffness. Balance work is practiced safely, with props and support always available. Breath longevity practices support respiratory health and calm the nervous system. But beyond the physical, this program honours something deeper: the dignity of an older body that has carried a life's worth of experience. Yoga here is not about defying age — it is about inhabiting it with grace, strength, and quiet joy.",
     duration: "12 weeks",
     level: "Gentle",
-    image: "https://images.unsplash.com/photo-YoRyMScmmfE?w=1920&q=80",
+    image: "https://imgs.search.brave.com/5pIlTj8P2RpFQ9OE0AGlonocuXzuilEl2f10jf9Q5cU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMzUv/NzU3LzExNC9zbWFs/bC9haS1nZW5lcmF0/ZWQtc2VuaW9yLXlv/Z2EtY2xhc3MtaW4t/dGhlLWd5bS1mb3J3/b21lbi1mcmVlLXBo/b3RvLmpwZw",
     includes: ["Chair yoga", "Joint care", "Balance work", "Breath longevity", "Gentle flow", "Fall prevention"],
   },
   {
