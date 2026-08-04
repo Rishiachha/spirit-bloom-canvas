@@ -1,8 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Section } from "@/components/site/Section";
 import { courses, sanskritQuotes } from "@/lib/site-data";
 import river from "@/assets/river.jpg";
 import community from "@/assets/community.jpg";
+import { useAuth } from "@/lib/auth";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/dashboard/")({
   head: () => ({
@@ -26,6 +28,19 @@ export const Route = createFileRoute("/dashboard/")({
 const quote = sanskritQuotes[2];
 
 function Dashboard() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate({ to: "/auth" });
+    }
+  }, [user, navigate]);
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <>
       <section className="relative overflow-hidden pt-[90px]">

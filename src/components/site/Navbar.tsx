@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { courseGroups, courses, topicSections, slugify } from "@/lib/site-data";
+import { useAuth } from "@/lib/auth";
 
 type MegaKey = "discover-yourself" | "yoga" | "meditation" | "health-wellness" | "courses";
 
@@ -20,6 +21,8 @@ export function Navbar() {
   }, []);
 
   const section = topicSections.find((s) => s.key === open);
+
+  const { user } = useAuth();
 
   return (
     <header
@@ -80,10 +83,10 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             <Link
-              to="/dashboard"
+              to={user ? "/dashboard" : "/auth"}
               className="hidden rounded-full border border-forest/25 px-5 py-2.5 text-[0.78rem] font-medium tracking-wide text-forest transition-colors hover:border-forest hover:bg-forest hover:text-primary-foreground lg:inline-flex"
             >
-              My Journey
+              {user ? "My Journey" : "Start Your Journey"}
             </Link>
             <button className="lg:hidden" aria-label="Menu" onClick={() => setMobile((v) => !v)}>
               {mobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -201,11 +204,11 @@ export function Navbar() {
             </li>
             <li>
               <Link
-                to="/dashboard"
+                to={user ? "/dashboard" : "/auth"}
                 onClick={() => setMobile(false)}
                 className="font-display text-2xl text-forest"
               >
-                My Journey
+                {user ? "My Journey" : "Start Your Journey"}
               </Link>
             </li>
           </ul>
