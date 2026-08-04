@@ -139,7 +139,7 @@ function Dashboard() {
                   <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {c.purpose}
                   </p>
-                  {c.videos && c.videos.length > 0 && (
+                  {c.videos && c.videos.length > 0 ? (
                     <Link
                       to="/courses/$slug/videos/"
                       params={{ slug: c.slug }}
@@ -147,6 +147,10 @@ function Dashboard() {
                     >
                       Enrol in this program
                     </Link>
+                  ) : (
+                    <span className="mt-6 inline-block rounded-full border border-forest/25 px-5 py-2.5 text-[0.72rem] font-medium tracking-wide text-forest/40">
+                      Enrol in this program
+                    </span>
                   )}
                 </div>
               </Link>

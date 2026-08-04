@@ -97,16 +97,20 @@ function CoursePage() {
           <p className="mt-8 max-w-xl text-[1.02rem] leading-relaxed text-ivory/80">
             {course.purpose}
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-8">
-          {course.videos && course.videos.length > 0 && (
-          <Link
-            to="/courses/$slug/videos/"
-            params={{ slug: course.slug }}
-            className="rounded-full bg-ivory px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-gold hover:text-ink"
-          >
-            Enrol in this program
-          </Link>
-        )}
+<div className="mt-10 flex flex-wrap items-center gap-8">
+          {course.videos && course.videos.length > 0 ? (
+            <Link
+              to="/courses/$slug/videos/"
+              params={{ slug: course.slug }}
+              className="rounded-full bg-ivory px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-gold hover:text-ink"
+            >
+              Enrol in this program
+            </Link>
+          ) : (
+            <span className="rounded-full bg-ivory/50 px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest/50">
+              Enrol in this program
+            </span>
+          )}
             <div className="flex gap-10 text-ivory/80">
               <div>
                 <p className="eyebrow text-ivory/60">Duration</p>
@@ -234,7 +238,7 @@ function CoursePage() {
           <p className="mt-8 text-[1rem] leading-relaxed text-ivory/75">
             Places are limited so that every student can be known by name.
           </p>
-          {course.videos && course.videos.length > 0 && (
+          {course.videos && course.videos.length > 0 ? (
           <Link
             to="/courses/$slug/videos/"
             params={{ slug: course.slug }}
@@ -242,6 +246,10 @@ function CoursePage() {
           >
             Start watching
           </Link>
+        ) : (
+          <span className="mt-10 inline-block rounded-full bg-ivory/50 px-10 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-forest/50">
+            Start watching
+          </span>
         )}
         </div>
       </Section>
