@@ -1,9 +1,14 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { signIn, useSession } from "@/lib/auth";
+import { useSession } from "@/lib/auth";
+import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 import hero from "@/assets/hero-sunrise.jpg";
 
 type Search = { redirect?: string };
+
+const safePath = (value: string | undefined) =>
+  value && value.startsWith("/") && !value.startsWith("//") ? value : "/dashboard";
 
 export const Route = createFileRoute("/auth/")({
   validateSearch: (search: Record<string, unknown>): Search => ({
@@ -15,13 +20,15 @@ export const Route = createFileRoute("/auth/")({
       {
         name: "description",
         content:
-          "Sign in to continue your practice journey, or create an account to track streaks, courses and daily verses.",
+          "Sign in to continue your practice journey, or create an account to track streaks, courses, badges and certificates.",
       },
       { property: "og:title", content: "Sign In | Rishi Sidhasamadhi Yoga" },
       {
         property: "og:description",
         content: "Enter your practice journey — streaks, courses and daily guidance.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: AuthPage,
@@ -36,20 +43,60 @@ function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
 
-  const target = redirect === "/dashboard" ? "/dashboard" : "/dashboard";
+  const target = safePath(redirect);
 
   useEffect(() => {
     if (ready && user) navigate({ to: target, replace: true });
   }, [ready, user, navigate, target]);
 
-  const submit = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem("rsy.after-auth", target);
+    }
+  }, [target]);
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+    setNotice(null);
     if (!email.includes("@")) return setError("Please enter a valid email address.");
     if (password.length < 6) return setError("Your password needs at least six characters.");
     if (mode === "signup" && name.trim().length < 2) return setError("Please tell us your name.");
+
+    setBusy(true);
+    if (mode === "signup") {
+      const { data, error: err } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: window.location.origin,
+          data: { display_name: name.trim() },
+        },
+      });
+      setBusy(false);
+      if (err) return setError(err.message);
+      if (!data.session) {
+        return setNotice("Almost there — check your email and confirm your address to begin.");
+      }
+      navigate({ to: target, replace: true });
+    } else {
+      const { error: err } = await supabase.auth.signInWithPassword({ email, password });
+      setBusy(false);
+      if (err) return setError(err.message);
+      navigate({ to: target, replace: true });
+    }
+  };
+
+  const google = async () => {
     setError(null);
-    signIn({ name: mode === "signup" ? name.trim() : email.split("@")[0], email });
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+    });
+    if (result.error) return setError("Google sign-in could not be completed. Please try again.");
+    if (result.redirected) return;
     navigate({ to: target, replace: true });
   };
 
@@ -71,8 +118,8 @@ function AuthPage() {
           </h1>
           <div className="rule-gold mt-8" />
           <p className="mt-8 max-w-md text-[1rem] leading-relaxed text-ivory/80">
-            Sign in to see your practice streak, course progress, saved videos and the verse chosen
-            for today. Your account is only ever used to hold your practice — nothing else.
+            Sign in to see your practice streak, enrolled courses, badges, notes and certificates.
+            Your account is only ever used to hold your practice — nothing else.
           </p>
         </div>
 
@@ -85,21 +132,32 @@ function AuthPage() {
                 onClick={() => {
                   setMode(m);
                   setError(null);
+                  setNotice(null);
                 }}
                 className="relative pb-4 text-[0.74rem] tracking-[0.18em] uppercase transition-colors"
-                style={{
-                  color: mode === m ? "var(--forest)" : "var(--muted-foreground)",
-                }}
+                style={{ color: mode === m ? "var(--forest)" : "var(--muted-foreground)" }}
               >
                 {m === "signin" ? "Sign In" : "Create Account"}
-                {mode === m && (
-                  <span className="absolute -bottom-px left-0 h-px w-full bg-gold" />
-                )}
+                {mode === m && <span className="absolute -bottom-px left-0 h-px w-full bg-gold" />}
               </button>
             ))}
           </div>
 
-          <form onSubmit={submit} className="mt-9 space-y-6">
+          <button
+            type="button"
+            onClick={google}
+            className="mt-8 w-full rounded-full border border-border px-8 py-4 text-[0.76rem] tracking-[0.14em] uppercase text-forest transition-colors hover:border-forest hover:bg-sand/60"
+          >
+            Continue with Google
+          </button>
+
+          <div className="mt-7 flex items-center gap-4">
+            <span className="h-px flex-1 bg-border" />
+            <span className="text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground">or</span>
+            <span className="h-px flex-1 bg-border" />
+          </div>
+
+          <form onSubmit={submit} className="mt-7 space-y-6">
             {mode === "signup" && (
               <Field label="Your name" value={name} onChange={setName} type="text" />
             )}
@@ -107,12 +165,14 @@ function AuthPage() {
             <Field label="Password" value={password} onChange={setPassword} type="password" />
 
             {error && <p className="text-sm text-destructive">{error}</p>}
+            {notice && <p className="text-sm text-earth">{notice}</p>}
 
             <button
               type="submit"
-              className="w-full rounded-full bg-forest px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-primary-foreground transition-colors hover:bg-gold hover:text-ink"
+              disabled={busy}
+              className="w-full rounded-full bg-forest px-8 py-4 text-[0.78rem] tracking-[0.16em] uppercase text-primary-foreground transition-colors hover:bg-gold hover:text-ink disabled:opacity-60"
             >
-              {mode === "signin" ? "Enter my journey" : "Begin my journey"}
+              {busy ? "One moment…" : mode === "signin" ? "Enter my journey" : "Begin my journey"}
             </button>
           </form>
 
@@ -147,7 +207,7 @@ function Field({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="mt-3 w-full border-b border-border bg-transparent pb-3 font-display text-xl text-forest outline-none transition-colors focus:border-gold"
+        className="mt-3 w-full border-b border-border bg-transparent pb-3 text-[0.95rem] text-foreground outline-none transition-colors focus:border-gold"
       />
     </label>
   );

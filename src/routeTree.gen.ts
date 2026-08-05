@@ -19,8 +19,12 @@ import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
+import { Route as CoursesSlugIndexRouteImport } from './routes/courses/$slug/index'
+import { Route as CoursesSlugEnrollRouteImport } from './routes/courses/$slug/enroll'
+import { Route as CoursesSlugCompleteRouteImport } from './routes/courses/$slug/complete'
 import { Route as CoursesSlugVideosIndexRouteImport } from './routes/courses/$slug/videos/index'
 import { Route as CoursesSlugVideosVideoIdRouteImport } from './routes/courses/$slug/videos/$videoId'
+import { Route as CoursesSlugTestTestIdRouteImport } from './routes/courses/$slug/test/$testId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -72,6 +76,21 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
   path: '/courses/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoursesSlugIndexRoute = CoursesSlugIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CoursesSlugRoute,
+} as any)
+const CoursesSlugEnrollRoute = CoursesSlugEnrollRouteImport.update({
+  id: '/enroll',
+  path: '/enroll',
+  getParentRoute: () => CoursesSlugRoute,
+} as any)
+const CoursesSlugCompleteRoute = CoursesSlugCompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => CoursesSlugRoute,
+} as any)
 const CoursesSlugVideosIndexRoute = CoursesSlugVideosIndexRouteImport.update({
   id: '/videos/',
   path: '/videos/',
@@ -83,6 +102,11 @@ const CoursesSlugVideosVideoIdRoute =
     path: '/videos/$videoId',
     getParentRoute: () => CoursesSlugRoute,
   } as any)
+const CoursesSlugTestTestIdRoute = CoursesSlugTestTestIdRouteImport.update({
+  id: '/test/$testId',
+  path: '/test/$testId',
+  getParentRoute: () => CoursesSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,13 +119,16 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
+  '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
+  '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
+  '/courses/$slug/': typeof CoursesSlugIndexRoute
+  '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
   '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
   '/courses/$slug/videos/': typeof CoursesSlugVideosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/topics/$slug': typeof TopicsSlugRoute
   '/about': typeof AboutIndexRoute
   '/auth': typeof AuthIndexRoute
@@ -109,6 +136,10 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
   '/topics': typeof TopicsIndexRoute
+  '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
+  '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
+  '/courses/$slug': typeof CoursesSlugIndexRoute
+  '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
   '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
   '/courses/$slug/videos': typeof CoursesSlugVideosIndexRoute
 }
@@ -124,6 +155,10 @@ export interface FileRoutesById {
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
+  '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
+  '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
+  '/courses/$slug/': typeof CoursesSlugIndexRoute
+  '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
   '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
   '/courses/$slug/videos/': typeof CoursesSlugVideosIndexRoute
 }
@@ -140,13 +175,16 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/events/'
     | '/topics/'
+    | '/courses/$slug/complete'
+    | '/courses/$slug/enroll'
+    | '/courses/$slug/'
+    | '/courses/$slug/test/$testId'
     | '/courses/$slug/videos/$videoId'
     | '/courses/$slug/videos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/sitemap.xml'
-    | '/courses/$slug'
     | '/topics/$slug'
     | '/about'
     | '/auth'
@@ -154,6 +192,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/events'
     | '/topics'
+    | '/courses/$slug/complete'
+    | '/courses/$slug/enroll'
+    | '/courses/$slug'
+    | '/courses/$slug/test/$testId'
     | '/courses/$slug/videos/$videoId'
     | '/courses/$slug/videos'
   id:
@@ -168,6 +210,10 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/events/'
     | '/topics/'
+    | '/courses/$slug/complete'
+    | '/courses/$slug/enroll'
+    | '/courses/$slug/'
+    | '/courses/$slug/test/$testId'
     | '/courses/$slug/videos/$videoId'
     | '/courses/$slug/videos/'
   fileRoutesById: FileRoutesById
@@ -257,6 +303,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/courses/$slug/': {
+      id: '/courses/$slug/'
+      path: '/'
+      fullPath: '/courses/$slug/'
+      preLoaderRoute: typeof CoursesSlugIndexRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
+    '/courses/$slug/enroll': {
+      id: '/courses/$slug/enroll'
+      path: '/enroll'
+      fullPath: '/courses/$slug/enroll'
+      preLoaderRoute: typeof CoursesSlugEnrollRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
+    '/courses/$slug/complete': {
+      id: '/courses/$slug/complete'
+      path: '/complete'
+      fullPath: '/courses/$slug/complete'
+      preLoaderRoute: typeof CoursesSlugCompleteRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
     '/courses/$slug/videos/': {
       id: '/courses/$slug/videos/'
       path: '/videos'
@@ -271,15 +338,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugVideosVideoIdRouteImport
       parentRoute: typeof CoursesSlugRoute
     }
+    '/courses/$slug/test/$testId': {
+      id: '/courses/$slug/test/$testId'
+      path: '/test/$testId'
+      fullPath: '/courses/$slug/test/$testId'
+      preLoaderRoute: typeof CoursesSlugTestTestIdRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
   }
 }
 
 interface CoursesSlugRouteChildren {
+  CoursesSlugCompleteRoute: typeof CoursesSlugCompleteRoute
+  CoursesSlugEnrollRoute: typeof CoursesSlugEnrollRoute
+  CoursesSlugIndexRoute: typeof CoursesSlugIndexRoute
+  CoursesSlugTestTestIdRoute: typeof CoursesSlugTestTestIdRoute
   CoursesSlugVideosVideoIdRoute: typeof CoursesSlugVideosVideoIdRoute
   CoursesSlugVideosIndexRoute: typeof CoursesSlugVideosIndexRoute
 }
 
 const CoursesSlugRouteChildren: CoursesSlugRouteChildren = {
+  CoursesSlugCompleteRoute: CoursesSlugCompleteRoute,
+  CoursesSlugEnrollRoute: CoursesSlugEnrollRoute,
+  CoursesSlugIndexRoute: CoursesSlugIndexRoute,
+  CoursesSlugTestTestIdRoute: CoursesSlugTestTestIdRoute,
   CoursesSlugVideosVideoIdRoute: CoursesSlugVideosVideoIdRoute,
   CoursesSlugVideosIndexRoute: CoursesSlugVideosIndexRoute,
 }
@@ -303,13 +385,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
