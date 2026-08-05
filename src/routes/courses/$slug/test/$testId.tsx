@@ -55,7 +55,7 @@ function TestPage() {
           course_slug: course.slug,
           test_id: test.id,
           kind: "written",
-          answers: test.questions.map((q, i) => ({ question: q, answer: answers[i] ?? "" })),
+          answers: test.questions.map((q: string, i: number) => ({ question: q, answer: answers[i] ?? "" })),
           score: answered,
           total: test.questions.length,
         });
@@ -154,7 +154,7 @@ function TestPage() {
           <p className="text-[0.98rem] leading-relaxed text-muted-foreground">{test.intro}</p>
 
           <div className="mt-12 space-y-10">
-            {test.questions.map((q, i) => (
+            {test.questions.map((q: string, i: number) => (
               <div key={q}>
                 <p className="font-display text-xl leading-snug text-forest">
                   <span className="mr-3 text-gold">{String(i + 1).padStart(2, "0")}</span>

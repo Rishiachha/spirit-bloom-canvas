@@ -23,6 +23,7 @@ import { Route as CoursesSlugIndexRouteImport } from './routes/courses/$slug/ind
 import { Route as CoursesSlugEnrollRouteImport } from './routes/courses/$slug/enroll'
 import { Route as CoursesSlugVideosIndexRouteImport } from './routes/courses/$slug/videos/index'
 import { Route as CoursesSlugVideosVideoIdRouteImport } from './routes/courses/$slug/videos/$videoId'
+import { Route as CoursesSlugTestTestIdRouteImport } from './routes/courses/$slug/test/$testId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -95,6 +96,11 @@ const CoursesSlugVideosVideoIdRoute =
     path: '/videos/$videoId',
     getParentRoute: () => CoursesSlugRoute,
   } as any)
+const CoursesSlugTestTestIdRoute = CoursesSlugTestTestIdRouteImport.update({
+  id: '/test/$testId',
+  path: '/test/$testId',
+  getParentRoute: () => CoursesSlugRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/topics/': typeof TopicsIndexRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
   '/courses/$slug/': typeof CoursesSlugIndexRoute
+  '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
   '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
   '/courses/$slug/videos/': typeof CoursesSlugVideosIndexRoute
 }
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/topics': typeof TopicsIndexRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
   '/courses/$slug': typeof CoursesSlugIndexRoute
+  '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
   '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
   '/courses/$slug/videos': typeof CoursesSlugVideosIndexRoute
 }
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/topics/': typeof TopicsIndexRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
   '/courses/$slug/': typeof CoursesSlugIndexRoute
+  '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
   '/courses/$slug/videos/$videoId': typeof CoursesSlugVideosVideoIdRoute
   '/courses/$slug/videos/': typeof CoursesSlugVideosIndexRoute
 }
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/topics/'
     | '/courses/$slug/enroll'
     | '/courses/$slug/'
+    | '/courses/$slug/test/$testId'
     | '/courses/$slug/videos/$videoId'
     | '/courses/$slug/videos/'
   fileRoutesByTo: FileRoutesByTo
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/topics'
     | '/courses/$slug/enroll'
     | '/courses/$slug'
+    | '/courses/$slug/test/$testId'
     | '/courses/$slug/videos/$videoId'
     | '/courses/$slug/videos'
   id:
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/topics/'
     | '/courses/$slug/enroll'
     | '/courses/$slug/'
+    | '/courses/$slug/test/$testId'
     | '/courses/$slug/videos/$videoId'
     | '/courses/$slug/videos/'
   fileRoutesById: FileRoutesById
@@ -307,12 +319,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugVideosVideoIdRouteImport
       parentRoute: typeof CoursesSlugRoute
     }
+    '/courses/$slug/test/$testId': {
+      id: '/courses/$slug/test/$testId'
+      path: '/test/$testId'
+      fullPath: '/courses/$slug/test/$testId'
+      preLoaderRoute: typeof CoursesSlugTestTestIdRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
   }
 }
 
 interface CoursesSlugRouteChildren {
   CoursesSlugEnrollRoute: typeof CoursesSlugEnrollRoute
   CoursesSlugIndexRoute: typeof CoursesSlugIndexRoute
+  CoursesSlugTestTestIdRoute: typeof CoursesSlugTestTestIdRoute
   CoursesSlugVideosVideoIdRoute: typeof CoursesSlugVideosVideoIdRoute
   CoursesSlugVideosIndexRoute: typeof CoursesSlugVideosIndexRoute
 }
@@ -320,6 +340,7 @@ interface CoursesSlugRouteChildren {
 const CoursesSlugRouteChildren: CoursesSlugRouteChildren = {
   CoursesSlugEnrollRoute: CoursesSlugEnrollRoute,
   CoursesSlugIndexRoute: CoursesSlugIndexRoute,
+  CoursesSlugTestTestIdRoute: CoursesSlugTestTestIdRoute,
   CoursesSlugVideosVideoIdRoute: CoursesSlugVideosVideoIdRoute,
   CoursesSlugVideosIndexRoute: CoursesSlugVideosIndexRoute,
 }
