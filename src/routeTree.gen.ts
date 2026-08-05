@@ -21,6 +21,7 @@ import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
 import { Route as CoursesSlugIndexRouteImport } from './routes/courses/$slug/index'
 import { Route as CoursesSlugEnrollRouteImport } from './routes/courses/$slug/enroll'
+import { Route as CoursesSlugCompleteRouteImport } from './routes/courses/$slug/complete'
 import { Route as CoursesSlugVideosIndexRouteImport } from './routes/courses/$slug/videos/index'
 import { Route as CoursesSlugVideosVideoIdRouteImport } from './routes/courses/$slug/videos/$videoId'
 import { Route as CoursesSlugTestTestIdRouteImport } from './routes/courses/$slug/test/$testId'
@@ -85,6 +86,11 @@ const CoursesSlugEnrollRoute = CoursesSlugEnrollRouteImport.update({
   path: '/enroll',
   getParentRoute: () => CoursesSlugRoute,
 } as any)
+const CoursesSlugCompleteRoute = CoursesSlugCompleteRouteImport.update({
+  id: '/complete',
+  path: '/complete',
+  getParentRoute: () => CoursesSlugRoute,
+} as any)
 const CoursesSlugVideosIndexRoute = CoursesSlugVideosIndexRouteImport.update({
   id: '/videos/',
   path: '/videos/',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
+  '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
   '/courses/$slug/': typeof CoursesSlugIndexRoute
   '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
   '/topics': typeof TopicsIndexRoute
+  '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
   '/courses/$slug': typeof CoursesSlugIndexRoute
   '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
   '/topics/': typeof TopicsIndexRoute
+  '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
   '/courses/$slug/': typeof CoursesSlugIndexRoute
   '/courses/$slug/test/$testId': typeof CoursesSlugTestTestIdRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/events/'
     | '/topics/'
+    | '/courses/$slug/complete'
     | '/courses/$slug/enroll'
     | '/courses/$slug/'
     | '/courses/$slug/test/$testId'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/events'
     | '/topics'
+    | '/courses/$slug/complete'
     | '/courses/$slug/enroll'
     | '/courses/$slug'
     | '/courses/$slug/test/$testId'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/events/'
     | '/topics/'
+    | '/courses/$slug/complete'
     | '/courses/$slug/enroll'
     | '/courses/$slug/'
     | '/courses/$slug/test/$testId'
@@ -305,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugEnrollRouteImport
       parentRoute: typeof CoursesSlugRoute
     }
+    '/courses/$slug/complete': {
+      id: '/courses/$slug/complete'
+      path: '/complete'
+      fullPath: '/courses/$slug/complete'
+      preLoaderRoute: typeof CoursesSlugCompleteRouteImport
+      parentRoute: typeof CoursesSlugRoute
+    }
     '/courses/$slug/videos/': {
       id: '/courses/$slug/videos/'
       path: '/videos'
@@ -330,6 +349,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface CoursesSlugRouteChildren {
+  CoursesSlugCompleteRoute: typeof CoursesSlugCompleteRoute
   CoursesSlugEnrollRoute: typeof CoursesSlugEnrollRoute
   CoursesSlugIndexRoute: typeof CoursesSlugIndexRoute
   CoursesSlugTestTestIdRoute: typeof CoursesSlugTestTestIdRoute
@@ -338,6 +358,7 @@ interface CoursesSlugRouteChildren {
 }
 
 const CoursesSlugRouteChildren: CoursesSlugRouteChildren = {
+  CoursesSlugCompleteRoute: CoursesSlugCompleteRoute,
   CoursesSlugEnrollRoute: CoursesSlugEnrollRoute,
   CoursesSlugIndexRoute: CoursesSlugIndexRoute,
   CoursesSlugTestTestIdRoute: CoursesSlugTestTestIdRoute,
