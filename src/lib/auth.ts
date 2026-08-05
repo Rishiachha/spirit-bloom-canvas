@@ -1,44 +1,68 @@
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
-export type SessionUser = { name: string; email: string };
+export type SessionUser = { id: string; name: string; email: string };
 
-const KEY = "rsy.session";
-const EVENT = "rsy-session-change";
+let cachedUser: SessionUser | null = null;
+const listeners = new Set<() => void>();
 
-export function readSession(): SessionUser | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.localStorage.getItem(KEY);
-    return raw ? (JSON.parse(raw) as SessionUser) : null;
-  } catch {
-    return null;
+function emit() {
+  listeners.forEach((l) => l());
+}
+
+async function loadProfileName(id: string, fallback: string) {
+  const { data } = await supabase.from("profiles").select("display_name").eq("id", id).maybeSingle();
+  if (data?.display_name && cachedUser && cachedUser.id === id) {
+    cachedUser = { ...cachedUser, name: data.display_name };
+    emit();
+  } else if (!data && cachedUser?.id === id) {
+    cachedUser = { ...cachedUser, name: fallback };
+    emit();
   }
 }
 
-export function signIn(user: SessionUser) {
-  window.localStorage.setItem(KEY, JSON.stringify(user));
-  window.dispatchEvent(new Event(EVENT));
+export async function signOut() {
+  await supabase.auth.signOut();
+  cachedUser = null;
+  emit();
 }
 
-export function signOut() {
-  window.localStorage.removeItem(KEY);
-  window.dispatchEvent(new Event(EVENT));
-}
-
-/** Client-side session. `ready` is false during SSR and first paint. */
+/** Client-side session. `ready` is false during SSR and the first paint. */
 export function useSession() {
-  const [user, setUser] = useState<SessionUser | null>(null);
+  const [user, setUser] = useState<SessionUser | null>(cachedUser);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const sync = () => setUser(readSession());
-    sync();
-    setReady(true);
-    window.addEventListener(EVENT, sync);
-    window.addEventListener("storage", sync);
+    let active = true;
+    const sync = () => {
+      if (active) setUser(cachedUser);
+    };
+    listeners.add(sync);
+
+    const apply = (session: { user: { id: string; email?: string | null } } | null) => {
+      if (session?.user) {
+        const fallback = session.user.email?.split("@")[0] ?? "Practitioner";
+        cachedUser = {
+          id: session.user.id,
+          email: session.user.email ?? "",
+          name: cachedUser?.id === session.user.id ? cachedUser.name : fallback,
+        };
+        emit();
+        void loadProfileName(session.user.id, fallback);
+      } else {
+        cachedUser = null;
+        emit();
+      }
+      if (active) setReady(true);
+    };
+
+    supabase.auth.getSession().then(({ data }) => apply(data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => apply(session));
+
     return () => {
-      window.removeEventListener(EVENT, sync);
-      window.removeEventListener("storage", sync);
+      active = false;
+      listeners.delete(sync);
+      sub.subscription.unsubscribe();
     };
   }, []);
 
