@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TopicsIndexRouteImport } from './routes/topics/index'
+import { Route as LiveIndexRouteImport } from './routes/live/index'
 import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
@@ -39,6 +40,11 @@ const IndexRoute = IndexRouteImport.update({
 const TopicsIndexRoute = TopicsIndexRouteImport.update({
   id: '/topics/',
   path: '/topics/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveIndexRoute = LiveIndexRouteImport.update({
+  id: '/live/',
+  path: '/live/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/courses/': typeof CoursesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
+  '/live/': typeof LiveIndexRoute
   '/topics/': typeof TopicsIndexRoute
   '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByTo {
   '/courses': typeof CoursesIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/events': typeof EventsIndexRoute
+  '/live': typeof LiveIndexRoute
   '/topics': typeof TopicsIndexRoute
   '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/courses/': typeof CoursesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/events/': typeof EventsIndexRoute
+  '/live/': typeof LiveIndexRoute
   '/topics/': typeof TopicsIndexRoute
   '/courses/$slug/complete': typeof CoursesSlugCompleteRoute
   '/courses/$slug/enroll': typeof CoursesSlugEnrollRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/courses/'
     | '/dashboard/'
     | '/events/'
+    | '/live/'
     | '/topics/'
     | '/courses/$slug/complete'
     | '/courses/$slug/enroll'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/courses'
     | '/dashboard'
     | '/events'
+    | '/live'
     | '/topics'
     | '/courses/$slug/complete'
     | '/courses/$slug/enroll'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/courses/'
     | '/dashboard/'
     | '/events/'
+    | '/live/'
     | '/topics/'
     | '/courses/$slug/complete'
     | '/courses/$slug/enroll'
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   CoursesIndexRoute: typeof CoursesIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
+  LiveIndexRoute: typeof LiveIndexRoute
   TopicsIndexRoute: typeof TopicsIndexRoute
 }
 
@@ -252,6 +265,13 @@ declare module '@tanstack/react-router' {
       path: '/topics'
       fullPath: '/topics/'
       preLoaderRoute: typeof TopicsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live/': {
+      id: '/live/'
+      path: '/live'
+      fullPath: '/live/'
+      preLoaderRoute: typeof LiveIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events/': {
@@ -380,6 +400,7 @@ const rootRouteChildren: RootRouteChildren = {
   CoursesIndexRoute: CoursesIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   EventsIndexRoute: EventsIndexRoute,
+  LiveIndexRoute: LiveIndexRoute,
   TopicsIndexRoute: TopicsIndexRoute,
 }
 export const routeTree = rootRouteImport
