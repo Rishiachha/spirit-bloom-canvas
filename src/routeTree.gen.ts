@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TopicsIndexRouteImport } from './routes/topics/index'
 import { Route as LiveIndexRouteImport } from './routes/live/index'
@@ -31,6 +32,11 @@ import { Route as CoursesSlugTestTestIdRouteImport } from './routes/courses/$slu
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -122,6 +128,7 @@ const CoursesSlugTestTestIdRoute = CoursesSlugTestTestIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/live/$slug': typeof LiveSlugRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
@@ -162,6 +170,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/live/$slug': typeof LiveSlugRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/sitemap.xml'
     | '/courses/$slug'
     | '/live/$slug'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/sitemap.xml'
     | '/live/$slug'
     | '/topics/$slug'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/sitemap.xml'
     | '/courses/$slug'
     | '/live/$slug'
@@ -244,6 +256,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CoursesSlugRoute: typeof CoursesSlugRouteWithChildren
   LiveSlugRoute: typeof LiveSlugRoute
@@ -264,6 +277,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -412,6 +432,7 @@ const CoursesSlugRouteWithChildren = CoursesSlugRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CoursesSlugRoute: CoursesSlugRouteWithChildren,
   LiveSlugRoute: LiveSlugRoute,
