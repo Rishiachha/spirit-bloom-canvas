@@ -38,6 +38,51 @@ export type Database = {
         }
         Relationships: []
       }
+      course_videos: {
+        Row: {
+          course_slug: string
+          created_at: string
+          created_by: string | null
+          description: string
+          duration: string
+          highlights: string[]
+          id: string
+          position: number
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          course_slug: string
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          duration?: string
+          highlights?: string[]
+          id?: string
+          position?: number
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          course_slug?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          duration?: string
+          highlights?: string[]
+          id?: string
+          position?: number
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       enrollments: {
         Row: {
           amount_cents: number
@@ -211,8 +256,10 @@ export type Database = {
           description: string
           duration_minutes: number
           id: string
+          is_live: boolean
           slug: string
           starts_at: string
+          stream_url: string | null
           teacher: string
           title: string
         }
@@ -222,8 +269,10 @@ export type Database = {
           description?: string
           duration_minutes?: number
           id?: string
+          is_live?: boolean
           slug: string
           starts_at?: string
+          stream_url?: string | null
           teacher?: string
           title: string
         }
@@ -233,8 +282,10 @@ export type Database = {
           description?: string
           duration_minutes?: number
           id?: string
+          is_live?: boolean
           slug?: string
           starts_at?: string
+          stream_url?: string | null
           teacher?: string
           title?: string
         }
@@ -318,6 +369,30 @@ export type Database = {
           display_name?: string
           email?: string | null
           id?: string
+        }
+        Relationships: []
+      }
+      site_visits: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path: string
+          referrer?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
