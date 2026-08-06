@@ -19,6 +19,7 @@ import { Route as CoursesIndexRouteImport } from './routes/courses/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
+import { Route as LiveSlugRouteImport } from './routes/live/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
 import { Route as CoursesSlugIndexRouteImport } from './routes/courses/$slug/index'
 import { Route as CoursesSlugEnrollRouteImport } from './routes/courses/$slug/enroll'
@@ -77,6 +78,11 @@ const TopicsSlugRoute = TopicsSlugRouteImport.update({
   path: '/topics/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LiveSlugRoute = LiveSlugRouteImport.update({
+  id: '/live/$slug',
+  path: '/live/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CoursesSlugRoute = CoursesSlugRouteImport.update({
   id: '/courses/$slug',
   path: '/courses/$slug',
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
+  '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/auth/': typeof AuthIndexRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about': typeof AboutIndexRoute
   '/auth': typeof AuthIndexRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
+  '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
   '/auth/': typeof AuthIndexRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/courses/$slug'
+    | '/live/$slug'
     | '/topics/$slug'
     | '/about/'
     | '/auth/'
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/sitemap.xml'
+    | '/live/$slug'
     | '/topics/$slug'
     | '/about'
     | '/auth'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/courses/$slug'
+    | '/live/$slug'
     | '/topics/$slug'
     | '/about/'
     | '/auth/'
@@ -234,6 +246,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CoursesSlugRoute: typeof CoursesSlugRouteWithChildren
+  LiveSlugRoute: typeof LiveSlugRoute
   TopicsSlugRoute: typeof TopicsSlugRoute
   AboutIndexRoute: typeof AboutIndexRoute
   AuthIndexRoute: typeof AuthIndexRoute
@@ -316,6 +329,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TopicsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/live/$slug': {
+      id: '/live/$slug'
+      path: '/live/$slug'
+      fullPath: '/live/$slug'
+      preLoaderRoute: typeof LiveSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/courses/$slug': {
       id: '/courses/$slug'
       path: '/courses/$slug'
@@ -394,6 +414,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CoursesSlugRoute: CoursesSlugRouteWithChildren,
+  LiveSlugRoute: LiveSlugRoute,
   TopicsSlugRoute: TopicsSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
   AuthIndexRoute: AuthIndexRoute,
