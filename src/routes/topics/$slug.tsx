@@ -31,9 +31,7 @@ export const Route = createFileRoute("/topics/$slug")({
 function TopicPage() {
   const { topic, related } = Route.useLoaderData();
   const isHealthWellness = topic.sectionKey === "health-wellness";
-  const guidedProgramLink = isHealthWellness
-    ? "/courses/health-wellness-guided-program"
-    : "/courses";
+  const guidedProgramSlug = isHealthWellness ? "health-wellness-guided-program" : null;
 
   return (
     <>
