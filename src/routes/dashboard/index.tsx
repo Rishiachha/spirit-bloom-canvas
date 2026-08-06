@@ -141,7 +141,7 @@ function Dashboard() {
                   </p>
                   {c.videos && c.videos.length > 0 ? (
                     <Link
-                      to="/courses/$slug/videos/"
+                      to="/courses/$slug/videos"
                       params={{ slug: c.slug }}
                       className="mt-6 inline-block rounded-full border border-forest/25 px-5 py-2.5 text-[0.72rem] font-medium tracking-wide text-forest transition-colors hover:border-forest hover:bg-forest hover:text-primary-foreground"
                     >
