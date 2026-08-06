@@ -18,6 +18,7 @@ import { Route as EventsIndexRouteImport } from './routes/events/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
 import { Route as LiveSlugRouteImport } from './routes/live/$slug'
@@ -74,6 +75,11 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/auth/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
   id: '/about/',
   path: '/about/',
@@ -128,12 +134,13 @@ const CoursesSlugTestTestIdRoute = CoursesSlugTestTestIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/courses/': typeof CoursesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -149,11 +156,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about': typeof AboutIndexRoute
+  '/admin': typeof AdminIndexRoute
   '/auth': typeof AuthIndexRoute
   '/courses': typeof CoursesIndexRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -170,12 +177,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/auth/': typeof AuthIndexRoute
   '/courses/': typeof CoursesIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -199,6 +207,7 @@ export interface FileRouteTypes {
     | '/live/$slug'
     | '/topics/$slug'
     | '/about/'
+    | '/admin/'
     | '/auth/'
     | '/courses/'
     | '/dashboard/'
@@ -214,11 +223,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/sitemap.xml'
     | '/live/$slug'
     | '/topics/$slug'
     | '/about'
+    | '/admin'
     | '/auth'
     | '/courses'
     | '/dashboard'
@@ -240,6 +249,7 @@ export interface FileRouteTypes {
     | '/live/$slug'
     | '/topics/$slug'
     | '/about/'
+    | '/admin/'
     | '/auth/'
     | '/courses/'
     | '/dashboard/'
@@ -256,7 +266,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRouteRoute: typeof AdminRouteRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CoursesSlugRoute: typeof CoursesSlugRouteWithChildren
   LiveSlugRoute: typeof LiveSlugRoute
@@ -335,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/about/': {
       id: '/about/'
       path: '/about'
@@ -408,6 +425,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
 interface CoursesSlugRouteChildren {
   CoursesSlugCompleteRoute: typeof CoursesSlugCompleteRoute
   CoursesSlugEnrollRoute: typeof CoursesSlugEnrollRoute
@@ -432,7 +461,7 @@ const CoursesSlugRouteWithChildren = CoursesSlugRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRouteRoute: AdminRouteRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CoursesSlugRoute: CoursesSlugRouteWithChildren,
   LiveSlugRoute: LiveSlugRoute,
