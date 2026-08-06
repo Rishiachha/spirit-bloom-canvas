@@ -165,7 +165,8 @@ export function Navbar() {
                     </Link>
                     {section.key === "health-wellness" && (
                       <Link
-                        to="/courses/health-wellness-guided-program"
+                        to="/courses/$slug"
+                        params={{ slug: "health-wellness-guided-program" }}
                         onClick={() => setOpen(null)}
                         className="mt-4 inline-block text-[0.78rem] tracking-widest uppercase text-gold hover:text-gold/80"
                       >

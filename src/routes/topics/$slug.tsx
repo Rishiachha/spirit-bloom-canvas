@@ -31,9 +31,7 @@ export const Route = createFileRoute("/topics/$slug")({
 function TopicPage() {
   const { topic, related } = Route.useLoaderData();
   const isHealthWellness = topic.sectionKey === "health-wellness";
-  const guidedProgramLink = isHealthWellness
-    ? "/courses/health-wellness-guided-program"
-    : "/courses";
+  const guidedProgramSlug = isHealthWellness ? "health-wellness-guided-program" : null;
 
   return (
     <>
@@ -143,12 +141,22 @@ function TopicPage() {
               correction saves years, and a community makes the years pleasant.
             </p>
 
-            <Link
-              to={guidedProgramLink}
-              className="mt-10 inline-block rounded-full border border-forest/25 px-8 py-4 text-[0.76rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-forest hover:text-primary-foreground"
-            >
-              Find a guided program
-            </Link>
+            {guidedProgramSlug ? (
+              <Link
+                to="/courses/$slug"
+                params={{ slug: guidedProgramSlug }}
+                className="mt-10 inline-block rounded-full border border-forest/25 px-8 py-4 text-[0.76rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-forest hover:text-primary-foreground"
+              >
+                Find a guided program
+              </Link>
+            ) : (
+              <Link
+                to="/courses"
+                className="mt-10 inline-block rounded-full border border-forest/25 px-8 py-4 text-[0.76rem] tracking-[0.16em] uppercase text-forest transition-colors hover:bg-forest hover:text-primary-foreground"
+              >
+                Find a guided program
+              </Link>
+            )}
           </article>
         </div>
       </Section>
