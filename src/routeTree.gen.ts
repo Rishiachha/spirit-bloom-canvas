@@ -23,6 +23,7 @@ import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
 import { Route as LiveSlugRouteImport } from './routes/live/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
+import { Route as AdminPeopleRouteImport } from './routes/admin/people'
 import { Route as AdminContentRouteImport } from './routes/admin/content'
 import { Route as CoursesSlugIndexRouteImport } from './routes/courses/$slug/index'
 import { Route as CoursesSlugEnrollRouteImport } from './routes/courses/$slug/enroll'
@@ -101,6 +102,11 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
   path: '/courses/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPeopleRoute = AdminPeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminContentRoute = AdminContentRouteImport.update({
   id: '/content',
   path: '/content',
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/people': typeof AdminPeopleRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/people': typeof AdminPeopleRoute
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about': typeof AboutIndexRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/content': typeof AdminContentRoute
+  '/admin/people': typeof AdminPeopleRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
@@ -213,6 +222,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/sitemap.xml'
     | '/admin/content'
+    | '/admin/people'
     | '/courses/$slug'
     | '/live/$slug'
     | '/topics/$slug'
@@ -235,6 +245,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/admin/content'
+    | '/admin/people'
     | '/live/$slug'
     | '/topics/$slug'
     | '/about'
@@ -257,6 +268,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/sitemap.xml'
     | '/admin/content'
+    | '/admin/people'
     | '/courses/$slug'
     | '/live/$slug'
     | '/topics/$slug'
@@ -392,6 +404,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/people': {
+      id: '/admin/people'
+      path: '/people'
+      fullPath: '/admin/people'
+      preLoaderRoute: typeof AdminPeopleRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/content': {
       id: '/admin/content'
       path: '/content'
@@ -446,11 +465,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteRouteChildren {
   AdminContentRoute: typeof AdminContentRoute
+  AdminPeopleRoute: typeof AdminPeopleRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminContentRoute: AdminContentRoute,
+  AdminPeopleRoute: AdminPeopleRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
