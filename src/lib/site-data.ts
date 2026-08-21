@@ -397,23 +397,112 @@ export const allTopics = topicSections.flatMap((section) =>
   })),
 );
 
-export const events = [
+export type EventCategory = "community" | "connection" | "celebration";
+
+export type FoundationEvent = {
+  slug: string;
+  title: string;
+  date: string;
+  place: string;
+  kind: string;
+  blurb: string;
+  category: EventCategory;
+  about: string;
+  modes: ("online" | "offline")[];
+  contribution: string;
+  onlineInstructions: string[];
+  offlineInstructions: string[];
+  slots: string[];
+  bring: string[];
+};
+
+export const eventCategories: {
+  key: EventCategory;
+  label: string;
+  intro: string;
+  description: string;
+}[] = [
+  {
+    key: "community",
+    label: "Community",
+    intro: "Gatherings hosted by local volunteers, open to everyone.",
+    description:
+      "No VIP rows, no reserved seats. Community gatherings are held by the people who live nearby, and shared food always follows the practice.",
+  },
+  {
+    key: "connection",
+    label: "Connection",
+    intro: "Workshops and retreats where practice deepens with guidance.",
+    description:
+      "Smaller circles, longer hours, senior teachers close by. Connection events are where a question you have carried for years finally gets answered.",
+  },
+  {
+    key: "celebration",
+    label: "Celebration",
+    intro: "Days when the whole tradition celebrates together.",
+    description:
+      "Chanting, music, silence and thousands of mats at sunrise — the tradition has always known how to celebrate quietly.",
+  },
+];
+
+export const events: FoundationEvent[] = [
   {
     slug: "international-yoga-day",
     title: "International Yoga Day",
     date: "21 June",
     place: "Riverbank Grounds, Rishikesh",
     kind: "Celebration",
+    category: "celebration",
     blurb:
       "Ten thousand mats at sunrise. One breath, held together by a city that wakes early for it.",
+    about:
+      "A single sequence, taught simultaneously on the riverbank and on the global stream, followed by chanting and a shared breakfast. Beginners are as welcome as teachers of forty years.",
+    modes: ["online", "offline"],
+    contribution: "Free — donations to the community kitchen are welcome",
+    onlineInstructions: [
+      "Your joining link arrives by email immediately after registration and again 24 hours before.",
+      "Join 15 minutes early; the stream opens with guided settling.",
+      "Keep a mat, a folded blanket and drinking water within reach.",
+      "Cameras optional. The teacher reads the chat for questions between rounds.",
+    ],
+    offlineInstructions: [
+      "Gates open 05:00. Please be seated on your mat by 05:40.",
+      "Carry the printed slot confirmation or the QR in your registration email.",
+      "Parking is at Ghat Road; the last 400 metres are walked.",
+      "Practice ends 07:30, followed by prasad in the courtyard.",
+    ],
+    slots: ["05:30 — Sunrise sequence", "07:00 — Second sitting", "17:30 — Evening chanting"],
+    bring: ["Yoga mat", "Light cotton clothing", "Water bottle", "A shawl for the sitting"],
   },
   {
     slug: "himalayan-silence-retreat",
     title: "Himalayan Silence Retreat",
-    date: "12â€“17 October",
+    date: "12–17 October",
     place: "Foundation Ashram, Uttarkashi",
     kind: "Retreat",
+    category: "connection",
     blurb: "Five days of noble silence in the high valleys, guided by senior teachers.",
+    about:
+      "Five days of maunam — silence held gently, with three practice sessions daily, one hour of teaching, and long afternoons where nothing is asked of you.",
+    modes: ["offline"],
+    contribution: "₹18,000 — includes stay and all meals",
+    onlineInstructions: [
+      "This retreat is held in residence only. Register your interest and we will offer you the nearest online intensive instead.",
+    ],
+    offlineInstructions: [
+      "Arrive on 12 October between 14:00 and 17:00; departure after breakfast on 17 October.",
+      "Silence begins at the 19:00 opening sitting and holds until the final morning.",
+      "Phones are handed in at reception and returned on departure.",
+      "Rooms are twin-share; single rooms on request, subject to availability.",
+    ],
+    slots: ["Full residency — 12 to 17 October"],
+    bring: [
+      "Warm layers (nights near 4°C)",
+      "Sturdy walking shoes",
+      "Torch",
+      "Notebook",
+      "Any personal medication",
+    ],
   },
   {
     slug: "pranayama-intensive",
@@ -421,7 +510,26 @@ export const events = [
     date: "Second Saturday, monthly",
     place: "Foundation Hall & Online",
     kind: "Workshop",
-    blurb: "A half day inside the breath â€” ratios, retention, and the science beneath them.",
+    category: "connection",
+    blurb: "A half day inside the breath — ratios, retention, and the science beneath them.",
+    about:
+      "Four hours of graded breathwork: nadi shodhana, ujjayi, the ratios of kumbhaka, and a clear look at what the physiology is actually doing.",
+    modes: ["online", "offline"],
+    contribution: "₹1,200 — free for Sadhaka members",
+    onlineInstructions: [
+      "A private room link is issued on registration and stays valid for every future intensive.",
+      "Sit where you can be undisturbed for four hours; the practice is not safe to interrupt mid-retention.",
+      "Eat lightly at least two hours before.",
+      "Recording is shared for seven days afterwards.",
+    ],
+    offlineInstructions: [
+      "Hall opens 08:30 for the 09:00 start; late entry disturbs retention rounds.",
+      "Come on an empty or very light stomach.",
+      "Bring your slot confirmation to the desk for your cushion allocation.",
+      "Tea and fruit are served at the 11:00 break.",
+    ],
+    slots: ["09:00 — Morning intensive", "14:00 — Afternoon intensive"],
+    bring: ["Meditation cushion or folded blanket", "Shawl", "Notebook", "Water"],
   },
   {
     slug: "community-satsang",
@@ -429,9 +537,29 @@ export const events = [
     date: "Every full moon",
     place: "Courtyard, open to all",
     kind: "Community",
+    category: "community",
     blurb: "Chanting, silence and shared food. No registration, no fee, no requirement.",
+    about:
+      "An evening of kirtan, a short teaching, twenty minutes of silence and then dinner on the floor together. Children and elders both belong here.",
+    modes: ["online", "offline"],
+    contribution: "Free",
+    onlineInstructions: [
+      "The stream link reaches you an hour before the sitting.",
+      "Chant sheets with transliteration and translation are attached to the same email.",
+      "Light a lamp where you sit, if you keep one.",
+      "The chat stays open after the sitting for anyone who wants to talk.",
+    ],
+    offlineInstructions: [
+      "Courtyard opens 18:00; kirtan begins at 18:30 sharp.",
+      "Seating is on the floor; a few chairs are kept aside — mention it in your registration note.",
+      "Footwear is left at the north gate.",
+      "Dinner is served at 20:00. Volunteers welcome from 17:00.",
+    ],
+    slots: ["18:30 — Full moon sitting"],
+    bring: ["A shawl", "Your own steel cup, if you can", "Nothing else is needed"],
   },
 ];
+
 
 export const liveClasses = [
   {

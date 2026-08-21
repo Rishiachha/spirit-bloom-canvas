@@ -122,6 +122,63 @@ export type Database = {
         }
         Relationships: []
       }
+      event_registrations: {
+        Row: {
+          access_link: string | null
+          city: string | null
+          created_at: string
+          email: string
+          event_slug: string
+          experience_level: string
+          full_name: string
+          id: string
+          message: string | null
+          mode: string
+          participants: number
+          phone: string | null
+          slot_time: string | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          access_link?: string | null
+          city?: string | null
+          created_at?: string
+          email: string
+          event_slug: string
+          experience_level?: string
+          full_name: string
+          id?: string
+          message?: string | null
+          mode?: string
+          participants?: number
+          phone?: string | null
+          slot_time?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          access_link?: string | null
+          city?: string | null
+          created_at?: string
+          email?: string
+          event_slug?: string
+          experience_level?: string
+          full_name?: string
+          id?: string
+          message?: string | null
+          mode?: string
+          participants?: number
+          phone?: string | null
+          slot_time?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       lesson_answers: {
         Row: {
           body: string
@@ -288,6 +345,48 @@ export type Database = {
           stream_url?: string | null
           teacher?: string
           title?: string
+        }
+        Relationships: []
+      }
+      memberships: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          currency: string
+          id: string
+          payment_reference: string | null
+          renews_at: string | null
+          started_at: string
+          status: string
+          tier: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_reference?: string | null
+          renews_at?: string | null
+          started_at?: string
+          status?: string
+          tier?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_reference?: string | null
+          renews_at?: string | null
+          started_at?: string
+          status?: string
+          tier?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
