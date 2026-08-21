@@ -408,7 +408,7 @@ export type FoundationEvent = {
   blurb: string;
   category: EventCategory;
   about: string;
-  modes: EventCategory extends never ? never : ("online" | "offline")[];
+  modes: ("online" | "offline")[];
   contribution: string;
   onlineInstructions: string[];
   offlineInstructions: string[];
