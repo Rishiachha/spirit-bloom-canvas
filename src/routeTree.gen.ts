@@ -22,6 +22,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as TopicsSlugRouteImport } from './routes/topics/$slug'
 import { Route as LiveSlugRouteImport } from './routes/live/$slug'
+import { Route as EventsSlugRouteImport } from './routes/events/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
 import { Route as AdminPeopleRouteImport } from './routes/admin/people'
 import { Route as AdminContentRouteImport } from './routes/admin/content'
@@ -97,6 +98,11 @@ const LiveSlugRoute = LiveSlugRouteImport.update({
   path: '/live/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CoursesSlugRoute = CoursesSlugRouteImport.update({
   id: '/courses/$slug',
   path: '/courses/$slug',
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/admin/content': typeof AdminContentRoute
   '/admin/people': typeof AdminPeopleRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
+  '/events/$slug': typeof EventsSlugRoute
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/content': typeof AdminContentRoute
   '/admin/people': typeof AdminPeopleRoute
+  '/events/$slug': typeof EventsSlugRoute
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about': typeof AboutIndexRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/admin/content': typeof AdminContentRoute
   '/admin/people': typeof AdminPeopleRoute
   '/courses/$slug': typeof CoursesSlugRouteWithChildren
+  '/events/$slug': typeof EventsSlugRoute
   '/live/$slug': typeof LiveSlugRoute
   '/topics/$slug': typeof TopicsSlugRoute
   '/about/': typeof AboutIndexRoute
@@ -224,6 +233,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/people'
     | '/courses/$slug'
+    | '/events/$slug'
     | '/live/$slug'
     | '/topics/$slug'
     | '/about/'
@@ -246,6 +256,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/content'
     | '/admin/people'
+    | '/events/$slug'
     | '/live/$slug'
     | '/topics/$slug'
     | '/about'
@@ -270,6 +281,7 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/admin/people'
     | '/courses/$slug'
+    | '/events/$slug'
     | '/live/$slug'
     | '/topics/$slug'
     | '/about/'
@@ -293,6 +305,7 @@ export interface RootRouteChildren {
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CoursesSlugRoute: typeof CoursesSlugRouteWithChildren
+  EventsSlugRoute: typeof EventsSlugRoute
   LiveSlugRoute: typeof LiveSlugRoute
   TopicsSlugRoute: typeof TopicsSlugRoute
   AboutIndexRoute: typeof AboutIndexRoute
@@ -395,6 +408,13 @@ declare module '@tanstack/react-router' {
       path: '/live/$slug'
       fullPath: '/live/$slug'
       preLoaderRoute: typeof LiveSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses/$slug': {
@@ -506,6 +526,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRouteRoute: AdminRouteRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   CoursesSlugRoute: CoursesSlugRouteWithChildren,
+  EventsSlugRoute: EventsSlugRoute,
   LiveSlugRoute: LiveSlugRoute,
   TopicsSlugRoute: TopicsSlugRoute,
   AboutIndexRoute: AboutIndexRoute,
